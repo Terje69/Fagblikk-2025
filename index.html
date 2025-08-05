@@ -106,7 +106,7 @@
     <div class="tiles">
       <div class="tile tile-full" onclick="navigate('claus')">Claus 🎥</div>
       <div class="tile" onclick="navigate('sjekkliste')">Ølutfordring 🍺</div>
-      <div class="tile" onclick="navigate('vitser')">Memes & Vitser 🤪</div>
+      <div class="tile" onclick="navigate('fly')">Potensielle flyvninger ✈️</div>
       <div class="tile" onclick="navigate('overnatting')">Overnatting 🛏️</div>
       <div class="tile" onclick="navigate('deltakere')">Deltakerliste 👥</div>
       <div class="tile" onclick="navigate('gir')">Kontingentet gir 💰</div>
@@ -119,23 +119,55 @@
     </div>
   </section>
 
-  <section id="lopere" class="page">
-    <h2>Kontingentets løpere 🏃‍♂️</h2>
-    <p>Deltakerne på Fagblikk oppfordres til å trene jevnlig for å forberede kroppen for påkjenningene en slik tur innebærer.</p>
-    <p>Målet for høst-treningene er å løpe 1 mil på under 50 minutter. Resultatene må dokumenteres elektronisk, for eksempel via Strava, Garmin, Polar, Apple Watch eller annet.</p>
-    <p>Husk: En sunn kropp gir plass til mer pils 🍻</p>
+  <section id="sjekkliste" class="page">
+    <h2>Ølutfordring 🍺</h2>
+    <ul>
+      <li><input type="checkbox" data-id="chimay"> Chimay Blue</li>
+      <li><input type="checkbox" data-id="orval"> Orval</li>
+      <li><input type="checkbox" data-id="westmalle"> Westmalle Tripel</li>
+      <li><input type="checkbox" data-id="duvel"> Duvel</li>
+      <li><input type="checkbox" data-id="delirium"> Delirium Tremens</li>
+      <li><input type="checkbox" data-id="gulden"> Gulden Draak</li>
+      <li><input type="checkbox" data-id="laChouffe"> La Chouffe</li>
+      <li><input type="checkbox" data-id="brugseZot"> Brugse Zot</li>
+      <li><input type="checkbox" data-id="maredsous"> Maredsous</li>
+      <li><input type="checkbox" data-id="palm"> Palm</li>
+      <li><input type="checkbox" data-id="kwak"> Kwak</li>
+      <li><input type="checkbox" data-id="tripelKarmeliet"> Tripel Karmeliet</li>
+      <li><input type="checkbox" data-id="stBernardus"> St. Bernardus Abt 12</li>
+      <li><input type="checkbox" data-id="lindemans"> Lindemans Kriek</li>
+      <li><input type="checkbox" data-id="hoegaarden"> Hoegaarden</li>
+      <li><input type="checkbox" data-id="leffe"> Leffe Blonde</li>
+      <li><input type="checkbox" data-id="saisonDupont"> Saison Dupont</li>
+      <li><input type="checkbox" data-id="struise"> Struise Pannepot</li>
+      <li><input type="checkbox" data-id="tSintBernard"> 't Smisje Dubbel</li>
+      <li><input type="checkbox" data-id="bush"> Bush Amber</li>
+    </ul>
     <div class="back-button" onclick="navigate('menu')">← Tilbake</div>
   </section>
 
-  <section id="mykle" class="page">
-    <h2>Mykle 👑</h2>
-    <p>Mykle er ikke bare et navn – det er en standard. Han er en maskin på alle felt: fysisk, sosialt og mentalt. Enten det er styrketrening, quizkveld eller pubrunde, så leverer Mykle på alle områder.</p>
-    <p>Han drikker ekstreme mengder pils, og gjør det med stil. Mykle har et eget tempo og en egen tilstedeværelse som inspirerer og samler hele gjengen. Han er limet i gutta, og like komfortabel i baren som i en debatt om verdenspolitikk.</p>
-    <p>Mykle er rett og slett fasit. En levende legende, et forbilde og en bauta i Fagblikk-universet. Dette er vår offisielle hyllest til ham – måtte han aldri slutte å være Mykle.</p>
+  <section id="claus" class="page">
+    <h2>Claus 🎥</h2>
+    <video controls>
+      <source src="https://drive.google.com/uc?export=download&id=1sZBjYESCjvdUl8j0h5E_rCIuCrZ9lmfL" type="video/mp4">
+      Din nettleser støtter ikke video.
+    </video>
     <div class="back-button" onclick="navigate('menu')">← Tilbake</div>
   </section>
 
-  <!-- Øvrige seksjoner beholdes som før -->
+  <section id="fly" class="page">
+    <h2>Potensielle flyvninger ✈️</h2>
+    <p>Forslag til ruter fra Molde til Brussel 9. og 10. oktober (med mellomlandinger):</p>
+    <ul>
+      <li>Molde → Oslo → Brussel (SAS + Brussels Airlines)</li>
+      <li>Molde → Amsterdam → Brussel (KLM + tog)</li>
+      <li>Molde → København → Brussel (SAS + Brussels Airlines)</li>
+    </ul>
+    <p>Oppdateres nærmere avreise.</p>
+    <div class="back-button" onclick="navigate('menu')">← Tilbake</div>
+  </section>
+
+  <!-- Tidligere seksjoner beholdes her -->
 
   <footer>
     Laget for Fagblikks årlige faglige påfyll av fag – oktober 2025 🍺
@@ -165,11 +197,9 @@
     setInterval(updateCountdown, 1000);
     updateCountdown();
 
-    // Lokal lagring av sjekkliste
     document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
       const id = checkbox.getAttribute('data-id');
       checkbox.checked = localStorage.getItem(id) === 'true';
-
       checkbox.addEventListener('change', () => {
         localStorage.setItem(id, checkbox.checked);
       });
@@ -180,7 +210,6 @@
       document.getElementById(id).classList.add('active');
     }
 
-    // Eirik Enge-counter
     const engeCountEl = document.getElementById("enge-count");
     let engeCount = parseInt(localStorage.getItem("engeCount")) || 0;
     engeCountEl.textContent = engeCount;
@@ -191,7 +220,6 @@
       localStorage.setItem("engeCount", engeCount);
     }
 
-    // Dra-ned-for-å-refreshe (mobil)
     let startY = 0;
     window.addEventListener('touchstart', (e) => {
       startY = e.touches[0].clientY;
@@ -205,4 +233,3 @@
   </script>
 </body>
 </html>
-
