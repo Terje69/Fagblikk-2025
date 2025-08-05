@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fagblikk 2025</title>
+  <link rel="manifest" href="manifest.json">
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f9f9f9;
+      color: #333;
+    }
+    header, section {
+      padding: 1.5rem;
+    }
+    h1, h2 {
+      text-align: center;
+    }
+    .countdown {
+      font-size: 2rem;
+      text-align: center;
+      margin: 1rem 0;
+    }
+    .tiles {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      max-width: 600px;
+      margin: 1rem auto;
+    }
+    .tile {
+      background: white;
+      padding: 1rem;
+      text-align: center;
+      border-radius: 12px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      text-decoration: none;
+      color: #333;
+      font-weight: bold;
+    }
+    .tile:hover {
+      background: #efefef;
+    }
+    .tile-full {
+      grid-column: span 2;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+    li {
+      background: white;
+      padding: 0.8rem;
+      margin: 0.5rem 0;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    input[type="checkbox"] {
+      margin-right: 1rem;
+    }
+    img, video {
+      max-width: 100%;
+      border-radius: 8px;
+      margin-top: 1rem;
+    }
+    .page {
+      display: none;
+    }
+    .page.active {
+      display: block;
+    }
+    .back-button {
+      display: block;
+      margin: 1rem auto;
+      text-align: center;
+      color: #007bff;
+      text-decoration: underline;
+      cursor: pointer;
+    }
+    footer {
+      text-align: center;
+      font-size: 0.9rem;
+      margin-top: 2rem;
+      color: #888;
+      padding-bottom: 2rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Fagblikk 2025</h1>
+    <div class="countdown" id="countdown"></div>
+  </header>
+
+  <section id="menu" class="page active">
+    <div class="tiles">
+      <div class="tile tile-full" onclick="navigate('claus')">Claus 🎥</div>
+      <div class="tile" onclick="navigate('sjekkliste')">Ølutfordring 🍺</div>
+      <div class="tile" onclick="navigate('vitser')">Memes & Vitser 🤪</div>
+      <div class="tile" onclick="navigate('overnatting')">Overnatting 🛏️</div>
+      <div class="tile" onclick="navigate('deltakere')">Deltakerliste 👥</div>
+      <div class="tile" onclick="navigate('gir')">Kontingentet gir 💰</div>
+      <div class="tile" onclick="navigate('tar')">Kontingentet tar 🧾</div>
+    </div>
+  </section>
+
+  <section id="claus" class="page">
+    <h2>Claus 🎥</h2>
+    <p>Video til ære for Claus – god stemning!</p>
+    <video controls>
+      <source src="https://drive.google.com/uc?export=download&id=1sZBjYESCjvdUl8j0h5E_rCIuCrZ9lmfL" type="video/mp4">
+      Nettleseren din støtter ikke video-taggen.
+    </video>
+    <div class="back-button" onclick="navigate('menu')">← Tilbake</div>
+  </section>
+
+  <section id="sjekkliste" class="page">
+    <h2>Ølutfordring</h2>
+    <ul id="beer-list">
+      <li><input type="checkbox" data-id="beer1"> Chimay Bleue</li>
+      <li><input type="checkbox" data-id="beer2"> Westvleteren 12</li>
+      <li><input type="checkbox" data-id="beer3"> Duvel</li>
+      <li><input type="checkbox" data-id="beer4"> Orval</li>
+      <li><input type="checkbox" data-id="beer5"> Rochefort 10</li>
+      <li><input type="checkbox" data-id="beer6"> La Chouffe</li>
+      <li><input type="checkbox" data-id="beer7"> St. Bernardus Abt 12</li>
+      <li><input type="checkbox" data-id="beer8"> Tripel Karmeliet</li>
+      <li><input type="checkbox" data-id="beer9"> Delirium Tremens</li>
+      <li><input type="checkbox" data-id="beer10"> Kwak</li>
+    </ul>
+    <div class="back-button" onclick="navigate('menu')">← Tilbake</div>
+  </section>
+
+  <section id="vitser" class="page">
+    <h2>Memes & Vitser</h2>
+    <p>Her kommer interne vitser, sitater og memes fra turen. Legg inn ting vi aldri må glemme 😂</p>
+    <ul>
+      <li>"Vi mistet Hams på Delirium Café... igjen."</li>
+      <li>"Hvem bestilte vann?"</li>
+    </ul>
+    <img src="https://drive.google.com/uc?export=view&id=EKSEMPELID" alt="Meme fra turen">
+    <div class="back-button" onclick="navigate('menu')">← Tilbake</div>
+  </section>
+
+  <section id="overnatting" class="page">
+    <h2>Overnatting</h2>
+    <p>Info kommer! 🛏️ Foreløpig: TBD.</p>
+    <div class="back-button" onclick="navigate('menu')">← Tilbake</div>
+  </section>
+
+  <section id="deltakere" class="page">
+    <h2>Deltakerliste</h2>
+    <ul>
+      <li>Hams Brurs Brur</li>
+      <li>Hams</li>
+      <li>Mace</li>
+      <li>Anders</li>
+      <li>Rune</li>
+    </ul>
+    <div class="back-button" onclick="navigate('menu')">← Tilbake</div>
+  </section>
+
+  <section id="gir" class="page">
+    <h2>Kontingnentet gir 💰</h2>
+    <p>Oversikt over hva kontignentet gir kommer her.</p>
+    <div class="back-button" onclick="navigate('menu')">← Tilbake</div>
+  </section>
+
+  <section id="tar" class="page">
+    <h2>Kontingentet tar 🧾</h2>
+    <p>Her listes det opp hva kontignentet tar.</p>
+    <div class="back-button" onclick="navigate('menu')">← Tilbake</div>
+  </section>
+
+  <footer>
+    Laget for Fagblikks årlige faglige påfyll av fag – oktober 2025 🍺
+  </footer>
+
+  <script>
+    const countdownEl = document.getElementById("countdown");
+    const targetDate = new Date("2025-10-09T07:00:00");
+
+    function updateCountdown() {
+      const now = new Date();
+      const diff = targetDate - now;
+
+      if (diff <= 0) {
+        countdownEl.textContent = "God tur! 🍻";
+        return;
+      }
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diff / (1000 * 60)) % 60);
+      const seconds = Math.floor((diff / 1000) % 60);
+
+      countdownEl.textContent = `${days}d ${hours}t ${minutes}m ${seconds}s`;
+    }
+
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+
+    // Lokal lagring av sjekkliste
+    document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+      const id = checkbox.getAttribute('data-id');
+      checkbox.checked = localStorage.getItem(id) === 'true';
+
+      checkbox.addEventListener('change', () => {
+        localStorage.setItem(id, checkbox.checked);
+      });
+    });
+
+    function navigate(id) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+    }
+  </script>
+</body>
+</html>
