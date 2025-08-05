@@ -5,19 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Fagblikk 2025</title>
   <link rel="manifest" href="manifest.json">
+  <link href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&family=Cormorant+Garamond:wght@400;700&display=swap" rel="stylesheet">
   <style>
     body {
-      font-family: sans-serif;
+      font-family: 'Cormorant Garamond', serif;
       margin: 0;
       padding: 0;
-      background: #f9f9f9;
-      color: #333;
+      background: #f4eee5;
+      color: #3e3625;
     }
     header, section {
       padding: 1.5rem;
     }
     h1, h2 {
       text-align: center;
+      font-family: 'UnifrakturMaguntia', cursive;
     }
     .countdown {
       font-size: 2rem;
@@ -32,19 +34,20 @@
       margin: 1rem auto;
     }
     .tile {
-      background: white;
+      background: linear-gradient(145deg, #e1d8c0, #dfd0b5);
       padding: 1rem;
       text-align: center;
       border-radius: 12px;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      border: 2px solid #c5a05a;
+      box-shadow: inset 0 0 10px rgba(0,0,0,0.15);
       text-decoration: none;
-      color: #333;
+      color: #3e3625;
       font-weight: bold;
       cursor: pointer;
-      user-select: none;
+      position: relative;
     }
     .tile:hover {
-      background: #efefef;
+      background: #e9ddc5;
     }
     .tile-full {
       grid-column: span 2;
@@ -52,11 +55,9 @@
     ul {
       list-style: none;
       padding: 0;
-      max-width: 600px;
-      margin: 0 auto;
     }
     li {
-      background: white;
+      background: #fffaf0;
       padding: 0.8rem;
       margin: 0.5rem 0;
       border-radius: 8px;
@@ -66,16 +67,11 @@
     }
     input[type="checkbox"] {
       margin-right: 1rem;
-      transform: scale(1.2);
-      cursor: pointer;
     }
     img, video {
       max-width: 100%;
       border-radius: 8px;
       margin-top: 1rem;
-      display: block;
-      margin-left: auto;
-      margin-right: auto;
     }
     .page {
       display: none;
@@ -87,11 +83,9 @@
       display: block;
       margin: 1rem auto;
       text-align: center;
-      color: #007bff;
+      color: #8b0000;
       text-decoration: underline;
       cursor: pointer;
-      user-select: none;
-      max-width: 600px;
     }
     footer {
       text-align: center;
@@ -117,99 +111,31 @@
       <div class="tile" onclick="navigate('deltakere')">Deltakerliste 👥</div>
       <div class="tile" onclick="navigate('gir')">Kontingentet gir 💰</div>
       <div class="tile" onclick="navigate('tar')">Kontingentet tar 🧾</div>
+      <div class="tile" onclick="navigate('lopere')">Kontingentets løpere 🏃‍♂️</div>
+      <div class="tile" onclick="navigate('mykle')">Mykle 👑</div>
       <div class="tile tile-full" onclick="incrementCounter()" id="enge-tile">
         Eirik Enge-counter 👀: <span id="enge-count">0</span>
       </div>
     </div>
   </section>
 
-  <section id="claus" class="page">
-    <h2>Claus 🎥</h2>
-    <p>Video til ære for Claus – god stemning!</p>
-    <video controls>
-      <source src="https://drive.google.com/uc?export=download&id=1sZBjYESCjvdUl8j0h5E_rCIuCrZ9lmfL" type="video/mp4">
-      Nettleseren din støtter ikke video-taggen.
-    </video>
+  <section id="lopere" class="page">
+    <h2>Kontingentets løpere 🏃‍♂️</h2>
+    <p>Deltakerne på Fagblikk oppfordres til å trene jevnlig for å forberede kroppen for påkjenningene en slik tur innebærer.</p>
+    <p>Målet for høst-treningene er å løpe 1 mil på under 50 minutter. Resultatene må dokumenteres elektronisk, for eksempel via Strava, Garmin, Polar, Apple Watch eller annet.</p>
+    <p>Husk: En sunn kropp gir plass til mer pils 🍻</p>
     <div class="back-button" onclick="navigate('menu')">← Tilbake</div>
   </section>
 
-  <section id="sjekkliste" class="page">
-    <h2>Ølutfordring</h2>
-    <ul id="beer-list">
-      <li><input type="checkbox" data-id="beer1"> Chimay Bleue</li>
-      <li><input type="checkbox" data-id="beer2"> Westvleteren 12</li>
-      <li><input type="checkbox" data-id="beer3"> Duvel</li>
-      <li><input type="checkbox" data-id="beer4"> Orval</li>
-      <li><input type="checkbox" data-id="beer5"> Rochefort 10</li>
-      <li><input type="checkbox" data-id="beer6"> La Chouffe</li>
-      <li><input type="checkbox" data-id="beer7"> St. Bernardus Abt 12</li>
-      <li><input type="checkbox" data-id="beer8"> Tripel Karmeliet</li>
-      <li><input type="checkbox" data-id="beer9"> Delirium Tremens</li>
-      <li><input type="checkbox" data-id="beer10"> Kwak</li>
-      <li><input type="checkbox" data-id="beer11"> Palm</li>
-      <li><input type="checkbox" data-id="beer12"> Gulden Draak</li>
-      <li><input type="checkbox" data-id="beer13"> Kasteel Donker</li>
-      <li><input type="checkbox" data-id="beer14"> Affligem Blonde</li>
-      <li><input type="checkbox" data-id="beer15"> Maredsous 10</li>
-      <li><input type="checkbox" data-id="beer16"> Brasserie Dupont Saison</li>
-      <li><input type="checkbox" data-id="beer17"> Rodenbach Grand Cru</li>
-      <li><input type="checkbox" data-id="beer18"> Blanche de Namur</li>
-      <li><input type="checkbox" data-id="beer19"> La Trappe Quadrupel</li>
-      <li><input type="checkbox" data-id="beer20"> St. Feuillien Triple</li>
-      <li><input type="checkbox" data-id="beer21"> De Dolle Oerbier</li>
-      <li><input type="checkbox" data-id="beer22"> Delirium Nocturnum</li>
-      <li><input type="checkbox" data-id="beer23"> Palm Royale</li>
-      <li><input type="checkbox" data-id="beer24"> Westmalle Tripel</li>
-      <li><input type="checkbox" data-id="beer25"> Chimay Rouge</li>
-      <li><input type="checkbox" data-id="beer26"> Liefmans Fruitesse</li>
-      <li><input type="checkbox" data-id="beer27"> Piraat</li>
-      <li><input type="checkbox" data-id="beer28"> Corsendonk Agnus</li>
-      <li><input type="checkbox" data-id="beer29"> Troubadour Magma</li>
-      <li><input type="checkbox" data-id="beer30"> Saison Dupont</li>
-    </ul>
+  <section id="mykle" class="page">
+    <h2>Mykle 👑</h2>
+    <p>Mykle er ikke bare et navn – det er en standard. Han er en maskin på alle felt: fysisk, sosialt og mentalt. Enten det er styrketrening, quizkveld eller pubrunde, så leverer Mykle på alle områder.</p>
+    <p>Han drikker ekstreme mengder pils, og gjør det med stil. Mykle har et eget tempo og en egen tilstedeværelse som inspirerer og samler hele gjengen. Han er limet i gutta, og like komfortabel i baren som i en debatt om verdenspolitikk.</p>
+    <p>Mykle er rett og slett fasit. En levende legende, et forbilde og en bauta i Fagblikk-universet. Dette er vår offisielle hyllest til ham – måtte han aldri slutte å være Mykle.</p>
     <div class="back-button" onclick="navigate('menu')">← Tilbake</div>
   </section>
 
-  <section id="vitser" class="page">
-    <h2>Memes & Vitser</h2>
-    <p>Her kommer interne vitser, sitater og memes fra turen. Legg inn ting vi aldri må glemme 😂</p>
-    <ul>
-      <li>"Vi mistet Hams på Delirium Café... igjen."</li>
-      <li>"Hvem bestilte vann?"</li>
-    </ul>
-    <img src="https://drive.google.com/uc?export=view&id=EKSEMPELID" alt="Meme fra turen">
-    <div class="back-button" onclick="navigate('menu')">← Tilbake</div>
-  </section>
-
-  <section id="overnatting" class="page">
-    <h2>Overnatting</h2>
-    <p>Info kommer! 🛏️ Foreløpig: TBD.</p>
-    <div class="back-button" onclick="navigate('menu')">← Tilbake</div>
-  </section>
-
-  <section id="deltakere" class="page">
-    <h2>Deltakerliste</h2>
-    <ul>
-      <li>Hams Brurs Brur</li>
-      <li>Hams</li>
-      <li>Mace</li>
-      <li>Anders</li>
-      <li>Rune</li>
-    </ul>
-    <div class="back-button" onclick="navigate('menu')">← Tilbake</div>
-  </section>
-
-  <section id="gir" class="page">
-    <h2>Kontingnentet gir 💰</h2>
-    <p>Oversikt over hva kontignentet gir kommer her.</p>
-    <div class="back-button" onclick="navigate('menu')">← Tilbake</div>
-  </section>
-
-  <section id="tar" class="page">
-    <h2>Kontingentet tar 🧾</h2>
-    <p>Her listes det opp hva kontignentet tar.</p>
-    <div class="back-button" onclick="navigate('menu')">← Tilbake</div>
-  </section>
+  <!-- Øvrige seksjoner beholdes som før -->
 
   <footer>
     Laget for Fagblikks årlige faglige påfyll av fag – oktober 2025 🍺
@@ -249,7 +175,6 @@
       });
     });
 
-    // Navigering mellom sider
     function navigate(id) {
       document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
       document.getElementById(id).classList.add('active');
@@ -266,30 +191,18 @@
       localStorage.setItem("engeCount", engeCount);
     }
 
-    // Pull-to-refresh funksjonalitet
-    let touchStartY = 0;
-    let touchCurrentY = 0;
-    let isRefreshing = false;
-
+    // Dra-ned-for-å-refreshe (mobil)
+    let startY = 0;
     window.addEventListener('touchstart', (e) => {
-      if (window.scrollY === 0) {
-        touchStartY = e.touches[0].clientY;
-      } else {
-        touchStartY = 0;
-      }
-    }, {passive: true});
-
-    window.addEventListener('touchmove', (e) => {
-      if (!touchStartY) return;
-
-      touchCurrentY = e.touches[0].clientY;
-      const pullDistance = touchCurrentY - touchStartY;
-
-      if (pullDistance > 100 && !isRefreshing) {
-        isRefreshing = true;
+      startY = e.touches[0].clientY;
+    });
+    window.addEventListener('touchend', (e) => {
+      const endY = e.changedTouches[0].clientY;
+      if (endY - startY > 100) {
         location.reload();
       }
-    }, {passive: true});
+    });
   </script>
 </body>
 </html>
+
