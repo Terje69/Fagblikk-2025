@@ -40,6 +40,10 @@
       text-decoration: none;
       color: #333;
       font-weight: bold;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
     .tile:hover {
       background: #efefef;
@@ -106,6 +110,10 @@
       <div class="tile" onclick="navigate('deltakere')">Deltakerliste 👥</div>
       <div class="tile" onclick="navigate('gir')">Kontingentet gir 💰</div>
       <div class="tile" onclick="navigate('tar')">Kontingentet tar 🧾</div>
+      <div class="tile tile-full" onclick="incrementCounter()" id="enge-tile">
+        <img src="enge-icon.png" alt="Eirik Enge" width="20" style="vertical-align: middle; margin-right: 8px;">
+        Eirik Enge-counter 👀: <span id="enge-count">0</span>
+      </div>
     </div>
   </section>
 
@@ -132,6 +140,26 @@
       <li><input type="checkbox" data-id="beer8"> Tripel Karmeliet</li>
       <li><input type="checkbox" data-id="beer9"> Delirium Tremens</li>
       <li><input type="checkbox" data-id="beer10"> Kwak</li>
+      <li><input type="checkbox" data-id="beer11"> Straffe Hendrik</li>
+      <li><input type="checkbox" data-id="beer12"> Gouden Carolus</li>
+      <li><input type="checkbox" data-id="beer13"> Blanche de Namur</li>
+      <li><input type="checkbox" data-id="beer14"> Palm</li>
+      <li><input type="checkbox" data-id="beer15"> Kasteel Donker</li>
+      <li><input type="checkbox" data-id="beer16"> Maredsous 10</li>
+      <li><input type="checkbox" data-id="beer17"> Chimay Rouge</li>
+      <li><input type="checkbox" data-id="beer18"> Bush Ambrée</li>
+      <li><input type="checkbox" data-id="beer19"> Leffe Blonde</li>
+      <li><input type="checkbox" data-id="beer20"> Kwak</li>
+      <li><input type="checkbox" data-id="beer21"> Tripel Karmeliet</li>
+      <li><input type="checkbox" data-id="beer22"> Orval</li>
+      <li><input type="checkbox" data-id="beer23"> Rochefort 6</li>
+      <li><input type="checkbox" data-id="beer24"> Westmalle Tripel</li>
+      <li><input type="checkbox" data-id="beer25"> St. Bernardus Tripel</li>
+      <li><input type="checkbox" data-id="beer26"> Rodenbach Grand Cru</li>
+      <li><input type="checkbox" data-id="beer27"> Liefmans Goudenband</li>
+      <li><input type="checkbox" data-id="beer28"> De Dolle Brouwers Oerbier</li>
+      <li><input type="checkbox" data-id="beer29"> Palm Royale</li>
+      <li><input type="checkbox" data-id="beer30"> Tripel Karmeliet</li>
     </ul>
     <div class="back-button" onclick="navigate('menu')">← Tilbake</div>
   </section>
@@ -218,6 +246,17 @@
     function navigate(id) {
       document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
       document.getElementById(id).classList.add('active');
+    }
+
+    // Eirik Enge-counter
+    const engeCountEl = document.getElementById("enge-count");
+    let engeCount = parseInt(localStorage.getItem("engeCount")) || 0;
+    engeCountEl.textContent = engeCount;
+
+    function incrementCounter() {
+      engeCount++;
+      engeCountEl.textContent = engeCount;
+      localStorage.setItem("engeCount", engeCount);
     }
   </script>
 </body>
