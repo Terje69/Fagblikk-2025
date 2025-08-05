@@ -68,11 +68,6 @@
     input[type="checkbox"] {
       margin-right: 1rem;
     }
-    img, video {
-      max-width: 100%;
-      border-radius: 8px;
-      margin-top: 1rem;
-    }
     .page {
       display: none;
     }
@@ -85,6 +80,29 @@
       text-align: center;
       color: #8b0000;
       text-decoration: underline;
+      cursor: pointer;
+    }
+    #game-box {
+      max-width: 600px;
+      margin: 1rem auto;
+      padding: 1rem;
+      background: #fffaf0;
+      border-radius: 12px;
+      border: 2px solid #c5a05a;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+    #game-text {
+      margin-bottom: 1rem;
+    }
+    .choice-button {
+      display: block;
+      width: 100%;
+      margin-bottom: 0.5rem;
+      padding: 0.5rem;
+      border: none;
+      background: #e1d8c0;
+      border-radius: 8px;
+      font-weight: bold;
       cursor: pointer;
     }
     footer {
@@ -104,7 +122,7 @@
 
   <section id="menu" class="page active">
     <div class="tiles">
-      <div class="tile tile-full" onclick="navigate('claus')">Claus 🎥</div>
+      <div class="tile tile-full" onclick="navigate('fagcraft')">World of Fagcraft 🏰</div>
       <div class="tile" onclick="navigate('sjekkliste')">Ølutfordring 🍺</div>
       <div class="tile" onclick="navigate('fly')">Potensielle flyvninger ✈️</div>
       <div class="tile" onclick="navigate('overnatting')">Overnatting 🛏️</div>
@@ -119,116 +137,15 @@
     </div>
   </section>
 
-  <section id="sjekkliste" class="page">
-    <h2>Ølutfordring 🍺</h2>
-    <ul>
-      <li><input type="checkbox" data-id="chimay"> Chimay Blue</li>
-      <li><input type="checkbox" data-id="orval"> Orval</li>
-      <li><input type="checkbox" data-id="westmalle"> Westmalle Tripel</li>
-      <li><input type="checkbox" data-id="duvel"> Duvel</li>
-      <li><input type="checkbox" data-id="delirium"> Delirium Tremens</li>
-      <li><input type="checkbox" data-id="gulden"> Gulden Draak</li>
-      <li><input type="checkbox" data-id="laChouffe"> La Chouffe</li>
-      <li><input type="checkbox" data-id="brugseZot"> Brugse Zot</li>
-      <li><input type="checkbox" data-id="maredsous"> Maredsous</li>
-      <li><input type="checkbox" data-id="palm"> Palm</li>
-      <li><input type="checkbox" data-id="kwak"> Kwak</li>
-      <li><input type="checkbox" data-id="tripelKarmeliet"> Tripel Karmeliet</li>
-      <li><input type="checkbox" data-id="stBernardus"> St. Bernardus Abt 12</li>
-      <li><input type="checkbox" data-id="lindemans"> Lindemans Kriek</li>
-      <li><input type="checkbox" data-id="hoegaarden"> Hoegaarden</li>
-      <li><input type="checkbox" data-id="leffe"> Leffe Blonde</li>
-      <li><input type="checkbox" data-id="saisonDupont"> Saison Dupont</li>
-      <li><input type="checkbox" data-id="struise"> Struise Pannepot</li>
-      <li><input type="checkbox" data-id="tSintBernard"> 't Smisje Dubbel</li>
-      <li><input type="checkbox" data-id="bush"> Bush Amber</li>
-    </ul>
+  <section id="fagcraft" class="page">
+    <h2>World of Fagcraft 🏰</h2>
+    <div id="game-box">
+      <div id="game-text">Velkommen, modige ridder Myklus Busticus! Din reise begynner i bryggerihallen. Fem hellige belgiske øl må samles for å kunne beseire den onde Heim E. Vernet og hans skumle hjelper, Vegard Beid. Hva gjør du først?</div>
+      <button class="choice-button" onclick="choose('velg1')">Søk etter Delirium i krypten</button>
+      <button class="choice-button" onclick="choose('velg2')">Drikk Hansa i Skumløs-skogen</button>
+    </div>
     <div class="back-button" onclick="navigate('menu')">← Tilbake</div>
   </section>
-
-  <section id="claus" class="page">
-    <h2>Claus 🎥</h2>
-    <video controls>
-      <source src="https://drive.google.com/uc?export=download&id=1sZBjYESCjvdUl8j0h5E_rCIuCrZ9lmfL" type="video/mp4">
-      Din nettleser støtter ikke video.
-    </video>
-    <div class="back-button" onclick="navigate('menu')">← Tilbake</div>
-  </section>
-
-  <section id="fly" class="page">
-    <h2>Potensielle flyvninger ✈️</h2>
-    <p>Forslag til ruter fra Molde til Brussel 9. og 10. oktober (med mellomlandinger):</p>
-    <ul>
-      <li>Molde → Oslo → Brussel (SAS + Brussels Airlines)</li>
-      <li>Molde → Amsterdam → Brussel (KLM + tog)</li>
-      <li>Molde → København → Brussel (SAS + Brussels Airlines)</li>
-    </ul>
-    <p>Oppdateres nærmere avreise.</p>
-    <div class="back-button" onclick="navigate('menu')">← Tilbake</div>
-  </section>
-
-  <!-- Tidligere seksjoner beholdes her -->
-<section id="overnatting" class="page">
-  <h2>Overnatting 🛏️</h2>
-  <p>Info om overnatting kommer! Foreløpig: TBD.</p>
-  <div class="back-button" onclick="navigate('menu')">← Tilbake</div>
-</section>
-
-<section id="deltakere" class="page">
-  <h2>Deltakerliste 👥</h2>
-  <ul>
-    <li>Terje</li>
-    <li>Claus</li>
-    <li>Mykle</li>
-    <li>Eirik</li>
-    <li>Flere navn kan legges til her...</li>
-  </ul>
-  <div class="back-button" onclick="navigate('menu')">← Tilbake</div>
-</section>
-
-<section id="gir" class="page">
-  <h2>Kontingentet gir 💰</h2>
-  <ul>
-    <li>Telt eller tak over hodet</li>
-    <li>Et felles måltid</li>
-    <li>Ulike former for underholdning</li>
-  </ul>
-  <div class="back-button" onclick="navigate('menu')">← Tilbake</div>
-</section>
-
-<section id="tar" class="page">
-  <h2>Kontingentet tar 🧾</h2>
-  <ul>
-    <li>Kontanter eller Vipps (senest 1. oktober)</li>
-    <li>Sjelefred</li>
-    <li>Eventuell verdighet etter kl. 01</li>
-  </ul>
-  <div class="back-button" onclick="navigate('menu')">← Tilbake</div>
-</section>
-
-<section id="lopere" class="page">
-  <h2>Kontingentets løpere 🏃‍♂️</h2>
-  <p>
-    Deltakerne på Fagblikk oppfordres til å trene jevnlig for å forberede kroppen for påkjenningene en slik tur innebærer.
-    Målet for høst-treningene er å løpe 1 mil på under 50 minutter. Må dokumenteres elektronisk.
-  </p>
-  <p>Lykke til! ⏱️👟</p>
-  <div class="back-button" onclick="navigate('menu')">← Tilbake</div>
-</section>
-
-<section id="mykle" class="page">
-  <h2>Mykle 👑</h2>
-  <p>
-    Mykle er et unikum. En uovervinnelig kraft i både teori og praksis. En ekte fagmann i alt han gjør.
-  </p>
-  <p>
-    Når det kommer til pils, finnes det ingen grenser. Han har evnen til å konsumere ekstreme mengder med stil og eleganse.
-  </p>
-  <p>
-    Mykle er ikke bare deltaker – han er selve fasiten. En legende blant menn. En ridder av Fagblikk-ordenen.
-  </p>
-  <div class="back-button" onclick="navigate('menu')">← Tilbake</div>
-</section>
 
   <footer>
     Laget for Fagblikks årlige faglige påfyll av fag – oktober 2025 🍺
@@ -258,14 +175,6 @@
     setInterval(updateCountdown, 1000);
     updateCountdown();
 
-    document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
-      const id = checkbox.getAttribute('data-id');
-      checkbox.checked = localStorage.getItem(id) === 'true';
-      checkbox.addEventListener('change', () => {
-        localStorage.setItem(id, checkbox.checked);
-      });
-    });
-
     function navigate(id) {
       document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
       document.getElementById(id).classList.add('active');
@@ -291,7 +200,25 @@
         location.reload();
       }
     });
+
+    function choose(valg) {
+      const text = document.getElementById("game-text");
+      const box = document.getElementById("game-box");
+      if (valg === 'velg1') {
+        text.innerHTML = "Du finner Delirium og føler styrken stige! Hva gjør du nå?";
+        box.innerHTML += `<button class='choice-button' onclick="choose('velg3')">Søk videre etter Tripel Karmeliet</button>`;
+        box.innerHTML += `<button class='choice-button' onclick="choose('feil')">Stopp og spill Candy Crush</button>`;
+      } else if (valg === 'velg2' || valg === 'feil') {
+        text.innerHTML = "Du er havnet i Skumløs-skogen! Glassholdet er elendig og alt som serveres er lunken Hansa. Du vender tilbake i skam.";
+      } else if (valg === 'velg3') {
+        text.innerHTML = "Du finner Tripel Karmeliet og fortsetter reisen. To øl igjen!";
+        box.innerHTML += `<button class='choice-button' onclick="choose('slutt')">Finn de siste ølene og bekjemp Heim E. Vernet</button>`;
+      } else if (valg === 'slutt') {
+        text.innerHTML = "Med fem hellige øl i kroppen bekjemper du Heim E. Vernet og Vegard Beid. Freden er gjenopprettet i kongeriket Fagblikk. Gratulerer, ridder Myklus Busticus! 🍻";
+      }
+    }
   </script>
 </body>
 </html>
+
 
