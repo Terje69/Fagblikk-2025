@@ -41,9 +41,7 @@
       color: #333;
       font-weight: bold;
       cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      user-select: none;
     }
     .tile:hover {
       background: #efefef;
@@ -54,6 +52,8 @@
     ul {
       list-style: none;
       padding: 0;
+      max-width: 600px;
+      margin: 0 auto;
     }
     li {
       background: white;
@@ -66,11 +66,16 @@
     }
     input[type="checkbox"] {
       margin-right: 1rem;
+      transform: scale(1.2);
+      cursor: pointer;
     }
     img, video {
       max-width: 100%;
       border-radius: 8px;
       margin-top: 1rem;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
     }
     .page {
       display: none;
@@ -85,6 +90,8 @@
       color: #007bff;
       text-decoration: underline;
       cursor: pointer;
+      user-select: none;
+      max-width: 600px;
     }
     footer {
       text-align: center;
@@ -111,7 +118,6 @@
       <div class="tile" onclick="navigate('gir')">Kontingentet gir 💰</div>
       <div class="tile" onclick="navigate('tar')">Kontingentet tar 🧾</div>
       <div class="tile tile-full" onclick="incrementCounter()" id="enge-tile">
-        <img src="enge-icon.png" alt="Eirik Enge" width="20" style="vertical-align: middle; margin-right: 8px;">
         Eirik Enge-counter 👀: <span id="enge-count">0</span>
       </div>
     </div>
@@ -140,26 +146,26 @@
       <li><input type="checkbox" data-id="beer8"> Tripel Karmeliet</li>
       <li><input type="checkbox" data-id="beer9"> Delirium Tremens</li>
       <li><input type="checkbox" data-id="beer10"> Kwak</li>
-      <li><input type="checkbox" data-id="beer11"> Straffe Hendrik</li>
-      <li><input type="checkbox" data-id="beer12"> Gouden Carolus</li>
-      <li><input type="checkbox" data-id="beer13"> Blanche de Namur</li>
-      <li><input type="checkbox" data-id="beer14"> Palm</li>
-      <li><input type="checkbox" data-id="beer15"> Kasteel Donker</li>
-      <li><input type="checkbox" data-id="beer16"> Maredsous 10</li>
-      <li><input type="checkbox" data-id="beer17"> Chimay Rouge</li>
-      <li><input type="checkbox" data-id="beer18"> Bush Ambrée</li>
-      <li><input type="checkbox" data-id="beer19"> Leffe Blonde</li>
-      <li><input type="checkbox" data-id="beer20"> Kwak</li>
-      <li><input type="checkbox" data-id="beer21"> Tripel Karmeliet</li>
-      <li><input type="checkbox" data-id="beer22"> Orval</li>
-      <li><input type="checkbox" data-id="beer23"> Rochefort 6</li>
+      <li><input type="checkbox" data-id="beer11"> Palm</li>
+      <li><input type="checkbox" data-id="beer12"> Gulden Draak</li>
+      <li><input type="checkbox" data-id="beer13"> Kasteel Donker</li>
+      <li><input type="checkbox" data-id="beer14"> Affligem Blonde</li>
+      <li><input type="checkbox" data-id="beer15"> Maredsous 10</li>
+      <li><input type="checkbox" data-id="beer16"> Brasserie Dupont Saison</li>
+      <li><input type="checkbox" data-id="beer17"> Rodenbach Grand Cru</li>
+      <li><input type="checkbox" data-id="beer18"> Blanche de Namur</li>
+      <li><input type="checkbox" data-id="beer19"> La Trappe Quadrupel</li>
+      <li><input type="checkbox" data-id="beer20"> St. Feuillien Triple</li>
+      <li><input type="checkbox" data-id="beer21"> De Dolle Oerbier</li>
+      <li><input type="checkbox" data-id="beer22"> Delirium Nocturnum</li>
+      <li><input type="checkbox" data-id="beer23"> Palm Royale</li>
       <li><input type="checkbox" data-id="beer24"> Westmalle Tripel</li>
-      <li><input type="checkbox" data-id="beer25"> St. Bernardus Tripel</li>
-      <li><input type="checkbox" data-id="beer26"> Rodenbach Grand Cru</li>
-      <li><input type="checkbox" data-id="beer27"> Liefmans Goudenband</li>
-      <li><input type="checkbox" data-id="beer28"> De Dolle Brouwers Oerbier</li>
-      <li><input type="checkbox" data-id="beer29"> Palm Royale</li>
-      <li><input type="checkbox" data-id="beer30"> Tripel Karmeliet</li>
+      <li><input type="checkbox" data-id="beer25"> Chimay Rouge</li>
+      <li><input type="checkbox" data-id="beer26"> Liefmans Fruitesse</li>
+      <li><input type="checkbox" data-id="beer27"> Piraat</li>
+      <li><input type="checkbox" data-id="beer28"> Corsendonk Agnus</li>
+      <li><input type="checkbox" data-id="beer29"> Troubadour Magma</li>
+      <li><input type="checkbox" data-id="beer30"> Saison Dupont</li>
     </ul>
     <div class="back-button" onclick="navigate('menu')">← Tilbake</div>
   </section>
@@ -243,6 +249,7 @@
       });
     });
 
+    // Navigering mellom sider
     function navigate(id) {
       document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
       document.getElementById(id).classList.add('active');
@@ -258,6 +265,31 @@
       engeCountEl.textContent = engeCount;
       localStorage.setItem("engeCount", engeCount);
     }
+
+    // Pull-to-refresh funksjonalitet
+    let touchStartY = 0;
+    let touchCurrentY = 0;
+    let isRefreshing = false;
+
+    window.addEventListener('touchstart', (e) => {
+      if (window.scrollY === 0) {
+        touchStartY = e.touches[0].clientY;
+      } else {
+        touchStartY = 0;
+      }
+    }, {passive: true});
+
+    window.addEventListener('touchmove', (e) => {
+      if (!touchStartY) return;
+
+      touchCurrentY = e.touches[0].clientY;
+      const pullDistance = touchCurrentY - touchStartY;
+
+      if (pullDistance > 100 && !isRefreshing) {
+        isRefreshing = true;
+        location.reload();
+      }
+    }, {passive: true});
   </script>
 </body>
 </html>
