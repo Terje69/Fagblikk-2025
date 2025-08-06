@@ -52,22 +52,6 @@
     .tile-full {
       grid-column: span 2;
     }
-    ul {
-      list-style: none;
-      padding: 0;
-    }
-    li {
-      background: #fffaf0;
-      padding: 0.8rem;
-      margin: 0.5rem 0;
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    }
-    input[type="checkbox"] {
-      margin-right: 1rem;
-    }
     .page {
       display: none;
     }
@@ -82,35 +66,19 @@
       text-decoration: underline;
       cursor: pointer;
     }
-    #game-box {
-      max-width: 600px;
-      margin: 1rem auto;
-      padding: 1rem;
-      background: #fffaf0;
-      border-radius: 12px;
-      border: 2px solid #c5a05a;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-    }
-    #game-text {
-      margin-bottom: 1rem;
-    }
-    .choice-button {
+    button {
       display: block;
       width: 100%;
-      margin-bottom: 0.5rem;
-      padding: 0.5rem;
-      border: none;
-      background: #e1d8c0;
+      margin: 0.5rem 0;
+      padding: 1rem;
+      background: #fffaf0;
+      border: 2px solid #c5a05a;
       border-radius: 8px;
-      font-weight: bold;
       cursor: pointer;
+      font-weight: bold;
     }
-    footer {
-      text-align: center;
-      font-size: 0.9rem;
-      margin-top: 2rem;
-      color: #888;
-      padding-bottom: 2rem;
+    button:hover {
+      background: #f8f1dc;
     }
   </style>
 </head>
@@ -122,34 +90,17 @@
 
   <section id="menu" class="page active">
     <div class="tiles">
-      <div class="tile tile-full" onclick="navigate('fagcraft')">World of Fagcraft 🏰</div>
-      <div class="tile" onclick="navigate('sjekkliste')">Ølutfordring 🍺</div>
-      <div class="tile" onclick="navigate('fly')">Potensielle flyvninger ✈️</div>
-      <div class="tile" onclick="navigate('overnatting')">Overnatting 🛏️</div>
-      <div class="tile" onclick="navigate('deltakere')">Deltakerliste 👥</div>
-      <div class="tile" onclick="navigate('gir')">Kontingentet gir 💰</div>
-      <div class="tile" onclick="navigate('tar')">Kontingentet tar 🧾</div>
-      <div class="tile" onclick="navigate('lopere')">Kontingentets løpere 🏃‍♂️</div>
-      <div class="tile" onclick="navigate('mykle')">Mykle 👑</div>
-      <div class="tile tile-full" onclick="incrementCounter()" id="enge-tile">
-        Eirik Enge-counter 👀: <span id="enge-count">0</span>
-      </div>
+      <div class="tile tile-full" onclick="navigate('rpg')">World of Fagcraft 🛡️</div>
+      <!-- resten av tiles her... -->
     </div>
   </section>
 
-  <section id="fagcraft" class="page">
-    <h2>World of Fagcraft 🏰</h2>
-    <div id="game-box">
-      <div id="game-text">Velkommen, modige ridder Myklus Busticus! Din reise begynner i bryggerihallen. Fem hellige belgiske øl må samles for å kunne beseire den onde Heim E. Vernet og hans skumle hjelper, Vegard Beid. Hva gjør du først?</div>
-      <button class="choice-button" onclick="choose('velg1')">Søk etter Delirium i krypten</button>
-      <button class="choice-button" onclick="choose('velg2')">Drikk Hansa i Skumløs-skogen</button>
-    </div>
+  <section id="rpg" class="page">
+    <h2>World of Fagcraft 🛡️</h2>
+    <div id="story"></div>
+    <div id="choices"></div>
     <div class="back-button" onclick="navigate('menu')">← Tilbake</div>
   </section>
-
-  <footer>
-    Laget for Fagblikks årlige faglige påfyll av fag – oktober 2025 🍺
-  </footer>
 
   <script>
     const countdownEl = document.getElementById("countdown");
@@ -180,43 +131,85 @@
       document.getElementById(id).classList.add('active');
     }
 
-    const engeCountEl = document.getElementById("enge-count");
-    let engeCount = parseInt(localStorage.getItem("engeCount")) || 0;
-    engeCountEl.textContent = engeCount;
+    const storyEl = document.getElementById("story");
+    const choicesEl = document.getElementById("choices");
 
-    function incrementCounter() {
-      engeCount++;
-      engeCountEl.textContent = engeCount;
-      localStorage.setItem("engeCount", engeCount);
+    const game = {
+      current: "start",
+      states: {
+        start: {
+          text: "Myklus drømmer seg bort en dag han holder en stige. Han kjenner tørsten komme. Heldigvis er det en fersk tank med Moldevann i Hiacen.",
+          choices: [
+            { text: "Ta en slurk Moldevann", next: "stige" },
+            { text: "Rister det av seg, kommer seg hjem, jekker en Hansa", next: "skumlos" },
+            { text: "Lar stigen stå uholdt og kjører på Polet", next: "stige" }
+          ]
+        },
+        stige: {
+          text: "Myklus innser at det er DJ Høgz som sitter i passasjersetet. De drikker en god øl i Svartrastvegen.",
+          choices: [
+            { text: "Neste", next: "struise" }
+          ]
+        },
+        struise: {
+          text: "De drikker en Struise. DJ Høgz tar en Chihuahua opp av lommen. Det ringer på døra – det er Russe_Chris.",
+          choices: [
+            { text: "Drikk opp ølen", next: "belgia" },
+            { text: "Tilby Russe_Chris en belgisk øl", next: "skumlos2" },
+            { text: "Tilby Russe_Chris en Hansa", next: "belgia" }
+          ]
+        },
+        belgia: {
+          text: "DJ Høgz gir Mykle en magisk flybillett til Belgia. Myklus sitter på Årø, Au Pairen er på jobb.",
+          choices: [
+            { text: "Kjøpe 2 0,6 og lage hundelyder", next: "brussel" },
+            { text: "Kjøpe Farris og en pakke tyggis", next: "gameover" },
+            { text: "Kjøpe 3 0,6 og en akevitt", next: "bentley" }
+          ]
+        },
+        brussel: {
+          text: "Etter noen Jupiler lander Myklus i Brussel, klar til å møte Heim E. Vernet og Vegard Beid.",
+          choices: []
+        },
+        bentley: {
+          text: "Myklus slipper ikke inn på flyet, men GP kjører ham til Belgia i Bentley.",
+          choices: []
+        },
+        gameover: {
+          text: "Du er forbannet til evig pine i Skumløs-skogen. GAME OVER.",
+          choices: []
+        },
+        skumlos: {
+          text: "Du havner i Skumløs-skogen hvor det kun serveres Hansa. Du ber til St. Bernardus og gjenopplever valgene.",
+          choices: [
+            { text: "Tilbake", next: "start" }
+          ]
+        },
+        skumlos2: {
+          text: "Hunden dør. Du ender i Skumløs-skogen. Du ber til St. Bernardus og returnerer.",
+          choices: [
+            { text: "Tilbake", next: "struise" }
+          ]
+        }
+      }
+    };
+
+    function render() {
+      const state = game.states[game.current];
+      storyEl.textContent = state.text;
+      choicesEl.innerHTML = "";
+      state.choices.forEach(choice => {
+        const btn = document.createElement("button");
+        btn.textContent = choice.text;
+        btn.onclick = () => {
+          game.current = choice.next;
+          render();
+        };
+        choicesEl.appendChild(btn);
+      });
     }
 
-    let startY = 0;
-    window.addEventListener('touchstart', (e) => {
-      startY = e.touches[0].clientY;
-    });
-    window.addEventListener('touchend', (e) => {
-      const endY = e.changedTouches[0].clientY;
-      if (endY - startY > 100) {
-        location.reload();
-      }
-    });
-
-    function choose(valg) {
-      const text = document.getElementById("game-text");
-      const box = document.getElementById("game-box");
-      if (valg === 'velg1') {
-        text.innerHTML = "Du finner Delirium og føler styrken stige! Hva gjør du nå?";
-        box.innerHTML += `<button class='choice-button' onclick="choose('velg3')">Søk videre etter Tripel Karmeliet</button>`;
-        box.innerHTML += `<button class='choice-button' onclick="choose('feil')">Stopp og spill Candy Crush</button>`;
-      } else if (valg === 'velg2' || valg === 'feil') {
-        text.innerHTML = "Du er havnet i Skumløs-skogen! Glassholdet er elendig og alt som serveres er lunken Hansa. Du vender tilbake i skam.";
-      } else if (valg === 'velg3') {
-        text.innerHTML = "Du finner Tripel Karmeliet og fortsetter reisen. To øl igjen!";
-        box.innerHTML += `<button class='choice-button' onclick="choose('slutt')">Finn de siste ølene og bekjemp Heim E. Vernet</button>`;
-      } else if (valg === 'slutt') {
-        text.innerHTML = "Med fem hellige øl i kroppen bekjemper du Heim E. Vernet og Vegard Beid. Freden er gjenopprettet i kongeriket Fagblikk. Gratulerer, ridder Myklus Busticus! 🍻";
-      }
-    }
+    render();
   </script>
 </body>
 </html>
