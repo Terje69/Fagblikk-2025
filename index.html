@@ -79,12 +79,20 @@
     .page.active {
       display: block;
     }
-    .back-button {
+    .back-button, .next-button {
       display: block;
       margin: 1rem auto;
       text-align: center;
       color: #8b0000;
       text-decoration: underline;
+      cursor: pointer;
+    }
+    .rpg-choice {
+      margin: 1rem 0;
+      padding: 1rem;
+      background: #fff3cd;
+      border: 1px solid #f0c36d;
+      border-radius: 8px;
       cursor: pointer;
     }
     footer {
@@ -93,18 +101,6 @@
       margin-top: 2rem;
       color: #888;
       padding-bottom: 2rem;
-    }
-    .choice-button {
-      background: #e1d8c0;
-      border: 2px solid #c5a05a;
-      border-radius: 10px;
-      padding: 1rem;
-      margin: 0.5rem 0;
-      cursor: pointer;
-      font-weight: bold;
-    }
-    .choice-button:hover {
-      background: #f0e6ce;
     }
   </style>
 </head>
@@ -116,7 +112,6 @@
 
   <section id="menu" class="page active">
     <div class="tiles">
-      <div class="tile tile-full" onclick="navigate('worldoffagcraft')">World of Fagcraft 🛡️</div>
       <div class="tile" onclick="navigate('sjekkliste')">Ølutfordring 🍺</div>
       <div class="tile" onclick="navigate('fly')">Potensielle flyvninger ✈️</div>
       <div class="tile" onclick="navigate('overnatting')">Overnatting 🛏️</div>
@@ -125,6 +120,7 @@
       <div class="tile" onclick="navigate('tar')">Kontingentet tar 🧾</div>
       <div class="tile" onclick="navigate('lopere')">Kontingentets løpere 🏃‍♂️</div>
       <div class="tile" onclick="navigate('mykle')">Mykle 👑</div>
+      <div class="tile" onclick="navigate('fagcraft')">World of Fagcraft 🛡️</div>
       <div class="tile tile-full" onclick="incrementCounter()" id="enge-tile">
         Eirik Enge-counter 👀: <span id="enge-count">0</span>
       </div>
@@ -133,13 +129,54 @@
 
   <section id="mykle" class="page">
     <h2>Mykle 👑</h2>
-    <p>Mykle (uttales med andakt) er en institusjon. Ikke bare i Fagblikk, men i livet. Han har sett mer, drukket mer, vært mer og visst mer enn de fleste. Hans blotte nærvær gir tyngde til enhver diskusjon og hans latter runger som klokker fra en trappist-kirke. Mykle ER. Og vi er takknemlige for det.</p>
+    <p>Mykle har gjennom en lang karriere utviklet seg fra en enkel glassmester til et overmenneske som kan stå i en stige 14 timer uten verken mat eller drikke. Han har en uovervinnelig lever og en intelligens som overgår kunstig intelligens. Ryktene sier at han skal til Belgia for å utfordre selve bryggerguden selv i en smakstest. Få er verdige til å være i hans nærvær, men du er en av de utvalgte.</p>
     <div class="back-button" onclick="navigate('menu')">← Tilbake</div>
   </section>
 
-  <section id="worldoffagcraft" class="page">
-    <h2>World of Fagcraft: Kapittel 1</h2>
-    <div id="rpg-container"></div>
+  <section id="fagcraft" class="page">
+    <h2>World of Fagcraft 🛡️</h2>
+    <p>Kapittel 1: Myklus Busticus’ Oppvåkning</p>
+    <div id="rpg"></div>
+    <div class="next-button" id="nextBtn" onclick="nextStep()" style="display:none">Neste →</div>
+    <div class="back-button" onclick="navigate('menu')">← Tilbake</div>
+  </section>
+
+  <section id="sjekkliste" class="page">
+    <h2>Ølutfordring 🍺</h2>
+    <ul>
+      <li><input type="checkbox" data-id="chimay"> Chimay Blue</li>
+      <li><input type="checkbox" data-id="orval"> Orval</li>
+      <li><input type="checkbox" data-id="westmalle"> Westmalle Tripel</li>
+      <li><input type="checkbox" data-id="duvel"> Duvel</li>
+      <li><input type="checkbox" data-id="delirium"> Delirium Tremens</li>
+      <li><input type="checkbox" data-id="gulden"> Gulden Draak</li>
+      <li><input type="checkbox" data-id="laChouffe"> La Chouffe</li>
+      <li><input type="checkbox" data-id="brugseZot"> Brugse Zot</li>
+      <li><input type="checkbox" data-id="maredsous"> Maredsous</li>
+      <li><input type="checkbox" data-id="palm"> Palm</li>
+      <li><input type="checkbox" data-id="kwak"> Kwak</li>
+      <li><input type="checkbox" data-id="tripelKarmeliet"> Tripel Karmeliet</li>
+      <li><input type="checkbox" data-id="stBernardus"> St. Bernardus Abt 12</li>
+      <li><input type="checkbox" data-id="lindemans"> Lindemans Kriek</li>
+      <li><input type="checkbox" data-id="hoegaarden"> Hoegaarden</li>
+      <li><input type="checkbox" data-id="leffe"> Leffe Blonde</li>
+      <li><input type="checkbox" data-id="saisonDupont"> Saison Dupont</li>
+      <li><input type="checkbox" data-id="struise"> Struise Pannepot</li>
+      <li><input type="checkbox" data-id="tSintBernard"> 't Smisje Dubbel</li>
+      <li><input type="checkbox" data-id="bush"> Bush Amber</li>
+    </ul>
+    <div class="back-button" onclick="navigate('menu')">← Tilbake</div>
+  </section>
+
+  <section id="fly" class="page">
+    <h2>Potensielle flyvninger ✈️</h2>
+    <p>Forslag til ruter fra Molde til Brussel 9. og 10. oktober (med mellomlandinger):</p>
+    <ul>
+      <li>Molde → Oslo → Brussel (SAS + Brussels Airlines)</li>
+      <li>Molde → Amsterdam → Brussel (KLM + tog)</li>
+      <li>Molde → København → Brussel (SAS + Brussels Airlines)</li>
+    </ul>
+    <p>Oppdateres nærmere avreise.</p>
     <div class="back-button" onclick="navigate('menu')">← Tilbake</div>
   </section>
 
@@ -150,19 +187,24 @@
   <script>
     const countdownEl = document.getElementById("countdown");
     const targetDate = new Date("2025-10-09T07:00:00");
+
     function updateCountdown() {
       const now = new Date();
       const diff = targetDate - now;
+
       if (diff <= 0) {
         countdownEl.textContent = "God tur! 🍻";
         return;
       }
+
       const days = Math.floor(diff / (1000 * 60 * 60 * 24));
       const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
       const minutes = Math.floor((diff / (1000 * 60)) % 60);
       const seconds = Math.floor((diff / 1000) % 60);
+
       countdownEl.textContent = `${days}d ${hours}t ${minutes}m ${seconds}s`;
     }
+
     setInterval(updateCountdown, 1000);
     updateCountdown();
 
@@ -182,6 +224,7 @@
     const engeCountEl = document.getElementById("enge-count");
     let engeCount = parseInt(localStorage.getItem("engeCount")) || 0;
     engeCountEl.textContent = engeCount;
+
     function incrementCounter() {
       engeCount++;
       engeCountEl.textContent = engeCount;
@@ -199,68 +242,65 @@
       }
     });
 
-    // RPG SYSTEM
-    const story = [
+    // RPG Engine
+    const rpgElement = document.getElementById("rpg");
+    const nextBtn = document.getElementById("nextBtn");
+    const rpgSteps = [
       {
         text: "Myklus drømmer seg bort en dag han holder en stige. Han kjenner tørsten komme. Heldigvis er det en fersk tank med Moldevann i Hiacen.",
-        choices: [
-          { text: "Ta en slurk Moldevann", next: 1 },
-          { text: "Rister det av seg, kommer seg hjem, jekker seg en Hansa", next: "skumlos" },
-          { text: "Lar stigen stå uholdt og kjører på Polet", next: 1 }
+        options: [
+          { text: "Ta en slurk Moldevann", result: "Han ser opp på stigen og oppdager at det er DJ Høgz som står der, og ikke Roar.", next: 1 },
+          { text: "Rister det av seg, kommer seg hjem, jekker seg en Hansa", result: "Myklus ender i Skumløs-skogen, hvor glassholdet er forferdelig og det kun serveres Hansa. Han ber til St. Bernardus og vender tilbake til stigen.", next: 0 },
+          { text: "Lar stigen stå uholdt og kjører på Polet", result: "Han innser at DJ Høgz sitter i passasjersetet.", next: 1 }
         ]
       },
       {
-        text: "Myklus innser at det er DJ Høgz som er med ham. De drikker en Struise og DJ Høgz drar frem en Chihuahua. Det ringer på døren, og det er Russe_Chris.",
-        choices: [
-          { text: "Drikk opp ølen", next: 2 },
-          { text: "Tilby Russe_Chris en belgisk øl", next: "skumlos" },
-          { text: "Tilby Russe_Chris en Hansa", next: 2 }
+        text: "Myklus og DJ Høgz drikker en Struise. DJ Høgz trekker plutselig opp en Chihuahua av lommen. Da ringer det på døren – det er Russe_Chris!",
+        options: [
+          { text: "Drikk opp ølen", result: "Munnen fylles av god smak. Russe_Chris bannlyses til Skumløs-skogen for alltid. DJ Høgz gir Myklus en magisk flybillett til Belgia.", next: 2 },
+          { text: "Tilby Russe_Chris en belgisk øl", result: "Hunden dør momentant. Myklus havner i Skumløs-skogen, men ber til St. Bernardus og kommer tilbake.", next: 1 },
+          { text: "Tilby Russe_Chris en Hansa", result: "Russe_Chris bannlyses til Skumløs-skogen og er borte for alltid.", next: 2 }
         ]
       },
       {
-        text: "Myklus sitter på Årø. Au pairen er på jobb.",
-        choices: [
-          { text: "Kjøpe 2 0,6 og lage hundelyder", next: 3 },
-          { text: "Kjøpe Farris og en pakke tyggis", next: "gameover" },
-          { text: "Kjøper 3 0,6 og en akevitt", next: 3 }
+        text: "Myklus sitter på Årø. Au Pairen er på jobb. Hva gjør han?",
+        options: [
+          { text: "Kjøpe 2 0,6 og lage hundelyder", result: "Lander etterhvert i Brussel etter noen Jupiler.", next: 3 },
+          { text: "Kjøpe Farris og en pakke tyggis", result: "Sendes til Skumløs-skogen til evig forbannelse. Game over.", next: null },
+          { text: "Kjøper 3 0,6 og en akevitt", result: "Slipper ikke inn på flyet, men blir kjørt til Belgia av GP i en Bentley.", next: 3 }
         ]
       },
       {
-        text: "Myklus ankommer Brussel og møter Heim E. Vernet og hans hjelper Vegard Beid i Tax Free.",
-        choices: [
-          { text: "Fortsett kampen i kapittel 2...", next: "end" }
-        ]
-      },
-      {
-        id: "skumlos",
-        text: "Du er i Skumløs-skogen. Her er glassholdet forferdelig og det serveres kun lunken Hansa.",
-        choices: [
-          { text: "Be til St. Bernardus", next: 0 }
-        ]
-      },
-      {
-        id: "gameover",
-        text: "Skjebnen din er beseglet. Du blir sendt til Skumløs-skogen til evig forbannelse. Game over.",
-        choices: [
-          { text: "Start på nytt", next: 0 }
-        ]
+        text: "Myklus ankommer Belgia. I Tax Free-området står Heim E. Vernet og hans hjelper Vegard Beid og venter. Eventyret fortsetter i neste kapittel...",
+        options: []
       }
     ];
 
     let currentStep = 0;
-    const container = document.getElementById("rpg-container");
-    function renderStep(stepId) {
-      let step = story.find(s => s.id === stepId) || story[stepId];
-      container.innerHTML = `<p>${step.text}</p>`;
-      step.choices.forEach(choice => {
-        const btn = document.createElement("div");
-        btn.className = "choice-button";
-        btn.textContent = choice.text;
-        btn.onclick = () => renderStep(choice.next);
-        container.appendChild(btn);
+
+    function renderStep() {
+      const step = rpgSteps[currentStep];
+      if (!step) return;
+      rpgElement.innerHTML = `<p>${step.text}</p>`;
+      step.options.forEach((opt, i) => {
+        const btn = document.createElement('div');
+        btn.className = 'rpg-choice';
+        btn.textContent = opt.text;
+        btn.onclick = () => {
+          rpgElement.innerHTML = `<p>${opt.result}</p>`;
+          currentStep = opt.next;
+          nextBtn.style.display = currentStep !== null ? 'block' : 'none';
+        };
+        rpgElement.appendChild(btn);
       });
     }
-    renderStep(currentStep);
+
+    function nextStep() {
+      nextBtn.style.display = 'none';
+      renderStep();
+    }
+
+    renderStep();
   </script>
 </body>
 </html>
