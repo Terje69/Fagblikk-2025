@@ -62,6 +62,32 @@
       cursor: pointer;
       color: #333;
     }
+
+    .rpg-step,
+    .rpg-outcome {
+      margin-top: 1rem;
+    }
+
+    .rpg-option {
+      margin: 0.5rem 0;
+      padding: 0.5rem;
+      background-color: #f0e68c;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .rpg-option:hover {
+      background-color: #eee8aa;
+    }
+
+    .next-btn {
+      margin-top: 1rem;
+      padding: 0.5rem 1rem;
+      background-color: #90ee90;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
   </style>
 </head>
 
@@ -87,9 +113,7 @@
   <div class="container hidden" id="beerList">
     <div class="back-btn" onclick="goBack()">← Tilbake</div>
     <h2>Ølutfordring</h2>
-    <ul id="beerChecklist">
-      <!-- Dynamisk fylt inn med JS -->
-    </ul>
+    <ul id="beerChecklist"></ul>
   </div>
 
   <div class="container hidden" id="memes">
@@ -153,9 +177,8 @@
     <div id="rpgContainer"></div>
   </div>
 
-  <script>
-    // JS-kode kommer her (nedtelling, navigasjon, RPG osv.)
-  </script>
+  <script src="rpg.js"></script>
+  <script src="main.js"></script>
 </body>
 
 </html>
