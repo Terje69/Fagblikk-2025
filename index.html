@@ -136,6 +136,43 @@
       document.getElementById('dailyContainer').classList.remove('hidden');
     }
 
+    function openFagcraftMenu() {
+      const content = document.getElementById('pageContent');
+      content.innerHTML = `
+        <h2>World of Fagcraft</h2>
+        <div class="tile double" onclick="startGame(1)">Kapittel 1: Myklus Oppvåkning</div>
+        <div class="tile double" onclick="startGame(2)">Kapittel 2: Flugten fra Vegard Beid</div>
+        <button onclick="showMainMenu()">Tilbake</button>
+      `;
+      content.classList.remove('hidden');
+      document.getElementById('mainMenu').classList.add('hidden');
+      document.getElementById('dailyContainer').classList.add('hidden');
+    }
+
+    function showKontingent(type) {
+      const content = document.getElementById('pageContent');
+      let html = '<button onclick="showMainMenu()">Tilbake</button>';
+      if (type === 'gir') {
+        html += `
+          <h2>Kontingentet gir</h2>
+          <img src="1.jpg" alt="Bilde 1" />
+          <img src="2.jpg" alt="Bilde 2" />
+          <img src="3.jpg" alt="Bilde 3" />
+          <img src="4.jpg" alt="Bilde 4" />
+          <img src="5.jpg" alt="Bilde 5" />
+        `;
+      } else if (type === 'tar') {
+        html += `
+          <h2>Kontingentet tar</h2>
+          <img src="do.jpg" alt="Kontingentet tar" />
+        `;
+      }
+      content.innerHTML = html;
+      content.classList.remove('hidden');
+      document.getElementById('mainMenu').classList.add('hidden');
+      document.getElementById('dailyContainer').classList.add('hidden');
+    }
+
     function showPage(page) {
       const content = document.getElementById('pageContent');
       let html = '<button onclick="showMainMenu()">Tilbake</button>';
@@ -165,7 +202,9 @@
     updateCountdown();
     setInterval(updateCountdown, 1000);
   </script>
+  <script src="rpg.js"></script>
 </body>
 </html>
+
 
 
