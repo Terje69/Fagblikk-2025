@@ -1,122 +1,118 @@
 <!DOCTYPE html>
 <html lang="no">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>World of Fagcraft 2025</title>
-<link href="https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap" rel="stylesheet" />
-<style>
-  body {
-    margin: 0;
-    font-family: 'MedievalSharp', cursive;
-    background-color: #f4f1e5;
-    color: #2e1d0e;
-    padding: 10px;
-    box-sizing: border-box;
-  }
-  #mainMenu {
-    max-width: 600px;
-    margin: auto;
-  }
-  .tile {
-    background-color: #fff4d1;
-    border: 2px solid #7b5e3d;
-    border-radius: 12px;
-    box-shadow: 3px 3px 6px rgba(0,0,0,0.2);
-    text-align: center;
-    cursor: pointer;
-    margin: 8px 4px;
-    padding: 20px 10px;
-    user-select: none;
-    transition: background-color 0.2s ease;
-  }
-  .tile:hover {
-    background-color: #f9e8b2;
-  }
-  .tile.double {
-    width: 96%;
-    font-size: 1.3em;
-    margin: 12px 2%;
-    padding: 30px 15px;
-  }
-  .tile.small {
-    width: 45%;
-    display: inline-block;
-    font-size: 1.1em;
-  }
-  button {
-    padding: 10px 20px;
-    margin: 10px 5px 0 5px;
-    font-family: inherit;
-    font-size: 1em;
-    background-color: #fff4d1;
-    border: 2px solid #7b5e3d;
-    cursor: pointer;
-    border-radius: 8px;
-    user-select: none;
-  }
-  button:hover {
-    background-color: #f9e8b2;
-  }
-  img {
-    max-width: 100%;
-    height: auto;
-    margin: 12px 0;
-    border-radius: 8px;
-  }
-  h2 {
-    margin-top: 0;
-  }
-  /* Nedtelling */
-  #countdown {
-    font-size: 1.3em;
-    text-align: center;
-    margin-bottom: 20px;
-    font-weight: bold;
-    color: #7b5e3d;
-  }
-  /* Responsive */
-  @media (max-width: 480px) {
-    .tile.small {
-      width: 96%;
-      display: block;
-      margin: 8px auto;
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Fagblikk 2025</title>
+  <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'MedievalSharp', cursive;
+      background-color: #f4f1e5;
+      color: #2e1d0e;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
     }
-  }
-</style>
-<script src="rpg.js" defer></script>
-<script>
-  // Starter med å vise mainMenu, skjuler alle andre
-  function showMainMenu() {
-    ['mainMenu','rpgContainer','dailyContainer','questContainer','kontingentContainer'].forEach(id => {
-      document.getElementById(id).style.display = (id === 'mainMenu') ? 'block' : 'none';
-    });
-  }
 
-  function startGame(chapter) {
-    document.getElementById("mainMenu").style.display = "none";
-    document.getElementById("rpgContainer").style.display = "block";
-    document.getElementById("dailyContainer").style.display = "none";
-    document.getElementById("questContainer").style.display = "none";
-    document.getElementById("kontingentContainer").style.display = "none";
-    startRPG(chapter);
-  }
+    #mainMenu, #worldMenu, #dailyContainer, #kontingentContainer, #rpgContainer, #questContainer {
+      width: 100%;
+      max-width: 600px;
+    }
 
-  function goToDailyQuests() {
-    document.getElementById("mainMenu").style.display = "none";
-    document.getElementById("rpgContainer").style.display = "none";
-    document.getElementById("dailyContainer").style.display = "block";
-    document.getElementById("questContainer").style.display = "none";
-    document.getElementById("kontingentContainer").style.display = "none";
-  }
+    .tiles-row {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
 
-  function openQuest(day) {
-    document.getElementById("dailyContainer").style.display = "none";
-    const container = document.getElementById("questContainer");
-    container.style.display = "block";
+    .tile {
+      background-color: #fff4d1;
+      border: 2px solid #7b5e3d;
+      border-radius: 12px;
+      box-shadow: 3px 3px 6px rgba(0,0,0,0.2);
+      text-align: center;
+      cursor: pointer;
+      padding: 30px 15px;
+      margin-bottom: 15px;
+      user-select: none;
+      transition: background-color 0.3s ease;
+      color: #2e1d0e;
+    }
+    .tile:hover {
+      background-color: #f9e8b2;
+    }
 
-    if (day === 1) {
-      container.innerHTML = `<h2>Dag 1: Daily Quests</h2>
+    .tile.large {
+      width: 100%;
+      font-size: 1.4em;
+      font-weight: bold;
+    }
+
+    .tile.medium {
+      width: 48%;
+      font-size: 1.1em;
+    }
+
+    button {
+      padding: 10px 20px;
+      margin: 15px 0;
+      font-family: inherit;
+      font-size: 1em;
+      background-color: #fff4d1;
+      border: 2px solid #7b5e3d;
+      cursor: pointer;
+      border-radius: 8px;
+      user-select: none;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background-color: #f9e8b2;
+    }
+
+    /* Containers default hidden except mainMenu */
+    #worldMenu, #dailyContainer, #kontingentContainer, #rpgContainer, #questContainer {
+      display: none;
+    }
+
+  </style>
+  <script src="rpg.js" defer></script>
+  <script>
+    // Hovedmeny handling
+    function openWorldMenu() {
+      document.getElementById('mainMenu').style.display = 'none';
+      document.getElementById('worldMenu').style.display = 'block';
+    }
+
+    function backToMain() {
+      // Skjuler alle menyer unntatt main
+      const containers = ['worldMenu','dailyContainer','kontingentContainer','rpgContainer','questContainer'];
+      containers.forEach(id => document.getElementById(id).style.display = 'none');
+      document.getElementById('mainMenu').style.display = 'block';
+    }
+
+    function startGame(chapter) {
+      document.getElementById('worldMenu').style.display = 'none';
+      document.getElementById('rpgContainer').style.display = 'block';
+      startRPG(chapter);
+    }
+
+    function openDailyQuests() {
+      document.getElementById('mainMenu').style.display = 'none';
+      document.getElementById('dailyContainer').style.display = 'block';
+    }
+
+    function openQuest(day) {
+      const container = document.getElementById('questContainer');
+      document.getElementById('dailyContainer').style.display = 'none';
+      container.style.display = 'block';
+
+      if (day === 1) {
+        container.innerHTML = `<h2>Dag 1: Daily Quests</h2>
         <ul>
           <li>Pils før flyplassen</li>
           <li>Pils hos Au Pairen</li>
@@ -128,95 +124,68 @@
           <li>Loote en gjenstand</li>
           <li>Hemse</li>
         </ul>
-        <button onclick="goToDailyQuests()">Tilbake</button>`;
-    } else {
-      container.innerHTML = `<h2>Dag ${day}</h2><p>Daily quests for denne dagen vil komme senere.</p><button onclick="goToDailyQuests()">Tilbake</button>`;
-    }
-  }
-
-  function showKontingent(type) {
-    document.getElementById("mainMenu").style.display = "none";
-    const container = document.getElementById("kontingentContainer");
-    container.style.display = "block";
-    document.getElementById("rpgContainer").style.display = "none";
-    document.getElementById("dailyContainer").style.display = "none";
-    document.getElementById("questContainer").style.display = "none";
-
-    if (type === 'gir') {
-      container.innerHTML = `
-        <h2>Kontingentet gir</h2>
-        <img src="1.jpg" alt="Bilde 1" />
-        <img src="2.jpg" alt="Bilde 2" />
-        <img src="3.jpg" alt="Bilde 3" />
-        <img src="4.jpg" alt="Bilde 4" />
-        <img src="5.jpg" alt="Bilde 5" />
-        <button onclick="showMainMenu()">Tilbake</button>
-      `;
-    } else {
-      container.innerHTML = `
-        <h2>Kontingentet tar</h2>
-        <img src="do.jpg" alt="Kontingentet tar" />
-        <button onclick="showMainMenu()">Tilbake</button>
-      `;
-    }
-  }
-
-  // Nedtelling til eksempel dato (juster etter behov)
-  function startCountdown() {
-    const countdownElem = document.getElementById("countdown");
-    const targetDate = new Date("2025-12-01T12:00:00"); // Sett ønsket dato/tid her
-
-    function updateCountdown() {
-      const now = new Date();
-      const diff = targetDate - now;
-
-      if (diff <= 0) {
-        countdownElem.textContent = "Eventen er i gang!";
-        clearInterval(intervalId);
-        return;
+        <button onclick="openDailyQuests()">Tilbake</button>`;
+      } else {
+        container.innerHTML = `<h2>Dag ${day}</h2><p>Daily quests for denne dagen vil komme senere.</p><button onclick="openDailyQuests()">Tilbake</button>`;
       }
-
-      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-      const minutes = Math.floor((diff / (1000 * 60)) % 60);
-      const seconds = Math.floor((diff / 1000) % 60);
-
-      countdownElem.textContent = `Nedtelling: ${days} dager ${hours}t ${minutes}m ${seconds}s`;
     }
 
-    updateCountdown();
-    const intervalId = setInterval(updateCountdown, 1000);
-  }
+    function showKontingent(type) {
+      document.getElementById('mainMenu').style.display = 'none';
+      const container = document.getElementById('kontingentContainer');
+      container.style.display = 'block';
 
-  document.addEventListener("DOMContentLoaded", () => {
-    showMainMenu();
-    startCountdown();
-  });
-</script>
+      if(type === 'gir') {
+        container.innerHTML = `
+          <h2>Kontingentet gir</h2>
+          <img src="1.jpg" alt="Bilde 1" style="max-width:100%;margin-bottom:15px;" />
+          <img src="2.jpg" alt="Bilde 2" style="max-width:100%;margin-bottom:15px;" />
+          <img src="3.jpg" alt="Bilde 3" style="max-width:100%;margin-bottom:15px;" />
+          <img src="4.jpg" alt="Bilde 4" style="max-width:100%;margin-bottom:15px;" />
+          <img src="5.jpg" alt="Bilde 5" style="max-width:100%;margin-bottom:15px;" />
+          <button onclick="backToMain()">Tilbake</button>
+        `;
+      } else {
+        container.innerHTML = `
+          <h2>Kontingentet tar</h2>
+          <img src="do.jpg" alt="Kontingentet tar" style="max-width:100%;margin-bottom:15px;" />
+          <button onclick="backToMain()">Tilbake</button>
+        `;
+      }
+    }
+  </script>
 </head>
 <body>
-  <div id="countdown"></div>
+  <main>
+    <section id="mainMenu">
+      <div class="tile large" onclick="openWorldMenu()">World of Fagcraft</div>
+      <div class="tile large" onclick="openDailyQuests()">Daily Quests</div>
 
-  <div id="mainMenu">
-    <div class="tile double" onclick="startGame(1)">World of Fagcraft: Kapittel 1 – Myklus Oppvåkning</div>
-    <div class="tile double" onclick="startGame(2)">World of Fagcraft: Kapittel 2 – Flugten fra Vegard Beid</div>
+      <div class="tiles-row">
+        <div class="tile medium" onclick="alert('Her kan du legge til info om overnatting')">Overnatting</div>
+        <div class="tile medium" onclick="alert('Her kan du legge til sjekkliste over belgiske øl')">Ølsjekklisten</div>
+        <div class="tile medium" onclick="showKontingent('gir')">Kontingentet gir</div>
+        <div class="tile medium" onclick="showKontingent('tar')">Kontingentet tar</div>
+      </div>
+    </section>
 
-    <div class="tile small" onclick="goToDailyQuests()">Daily Quests</div>
-    <div class="tile small" onclick="showKontingent('gir')">Kontingentet gir</div>
-    <div class="tile small" onclick="showKontingent('tar')">Kontingentet tar</div>
-  </div>
+    <section id="worldMenu">
+      <div class="tile large" onclick="backToMain()">← Tilbake</div>
+      <div class="tile medium" onclick="startGame(1)">Kapittel 1 – Myklus Oppvåkning</div>
+      <div class="tile medium" onclick="startGame(2)">Kapittel 2 – Flugten fra Vegard Beid</div>
+    </section>
 
-  <div id="rpgContainer" style="display:none;"></div>
+    <section id="dailyContainer">
+      <div class="tile large" onclick="backToMain()">← Tilbake</div>
+      <div class="tile medium" onclick="openQuest(1)">Dag 1</div>
+      <div class="tile medium" onclick="openQuest(2)">Dag 2</div>
+      <div class="tile medium" onclick="openQuest(3)">Dag 3</div>
+      <div class="tile medium" onclick="openQuest(4)">Dag 4</div>
+    </section>
 
-  <div id="dailyContainer" style="display:none; max-width: 600px; margin:auto;">
-    <div class="tile double" onclick="openQuest(1)">Dag 1</div>
-    <div class="tile double" onclick="openQuest(2)">Dag 2</div>
-    <div class="tile double" onclick="openQuest(3)">Dag 3</div>
-    <div class="tile double" onclick="openQuest(4)">Dag 4</div>
-    <button onclick="showMainMenu()">Tilbake</button>
-  </div>
-
-  <div id="questContainer" style="display:none; max-width: 600px; margin:auto;"></div>
-  <div id="kontingentContainer" style="display:none; max-width: 600px; margin:auto;"></div>
+    <section id="questContainer"></section>
+    <section id="kontingentContainer"></section>
+    <section id="rpgContainer"></section>
+  </main>
 </body>
 </html>
