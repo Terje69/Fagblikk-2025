@@ -26,7 +26,7 @@
     }
     .tile {
       display: inline-block;
-      width: calc(50% - 20px);
+      width: calc(45% - 20px);
       margin: 10px;
       padding: 20px;
       background-color: #fff4d1;
@@ -37,7 +37,7 @@
       box-shadow: 2px 2px 6px rgba(0,0,0,0.2);
     }
     .tile.double {
-      width: calc(100% - 40px);
+      width: calc(90% - 20px);
       font-size: 1.5em;
       font-weight: bold;
     }
@@ -63,13 +63,12 @@
   <div id="mainMenu">
     <div class="tile double" onclick="openFagcraftMenu()">World of Fagcraft</div>
     <div class="tile double" onclick="openDailyQuests()">Daily Quests</div>
-    <div class="tile single" onclick="showPage('mykle')">Mykle</div>
-    <div class="tile single" onclick="showPage('flyreiser')">Flyreiser</div>
-    <div class="tile single" onclick="showPage('overnatting')">Overnatting</div>
-    <div class="tile single" onclick="showPage('ol')">Belgiske øl</div>
-    <div class="tile single" onclick="showPage('sjekkliste')">Sjekkliste</div>
-    <div class="tile single" onclick="showKontingent('gir')">Kontingentet gir</div>
-    <div class="tile single" onclick="showKontingent('tar')">Kontingentet tar</div>
+    <div class="tile" onclick="showPage('mykle')">Mykle</div>
+    <div class="tile" onclick="showPage('flyreiser')">Flyreiser</div>
+    <div class="tile" onclick="showPage('overnatting')">Overnatting</div>
+    <div class="tile" onclick="showPage('ol')">Belgiske øl</div>
+    <div class="tile" onclick="showKontingent('gir')">Kontingentet gir</div>
+    <div class="tile" onclick="showKontingent('tar')">Kontingentet tar</div>
   </div>
 
   <div id="dailyContainer" class="hidden">
@@ -122,7 +121,7 @@
       let html = '<button onclick="showMainMenu()">Tilbake</button>';
       switch (page) {
         case 'mykle':
-          html += '<h2>Mykle</h2><p>Han er en maskin på alle felt, drikker ekstreme mengder pils og er rett og slett fasit. Han er kjent som Mykle. En levende legende. En tårnbygger. En pilsens profet.</p>';
+          html += '<h2>Mykle</h2><p>Han er en maskin på alle felt, drikker ekstreme mengder pils og er rett og slett fasit. Han er kjent som Mykle. En levende legende. En tårnbygger. En pilsens profet. Han er det femte giret. En som trekker slede i motvind. En som kan drikke opp det som ikke ble drukket. En katedral av kropp og karakter. Mykle er ikke et navn – det er et kall.</p>';
           break;
         case 'flyreiser':
           html += '<h2>Flyreiser</h2><p>Potensielle flyvninger Molde – Brussel. Informasjon oppdateres fortløpende.</p>';
@@ -131,10 +130,10 @@
           html += '<h2>Overnatting</h2><p>Informasjon om overnatting er TBD (To Be Determined).</p>';
           break;
         case 'ol':
-          html += '<h2>Belgiske øl</h2><ul><li>Orval</li><li>Chimay Blue</li><li>Westmalle Tripel</li><li>Rochefort 10</li><li>Duvel</li><li>La Chouffe</li><li>St. Bernardus Abt 12</li><li>Gulden Draak</li><li>Delirium Tremens</li><li>Kwak</li><li>Tripel Karmeliet</li><li>Leffe Brune</li><li>Maredsous 8</li><li>Blanche de Namur</li><li>Pauwel Kwak</li><li>Saison Dupont</li><li>Westvleteren 12</li><li>Grisette</li><li>Lupulus</li><li>Affligem Tripel</li></ul>';
-          break;
-        case 'sjekkliste':
-          html += '<h2>Sjekkliste</h2><ul><li>Pass</li><li>Billetter</li><li>Powerbank</li><li>Solbriller</li><li>Telefonlader</li></ul>';
+          html += '<h2>Belgiske øl</h2><ul>' +
+            ['Orval','Chimay Blue','Westmalle Tripel','Rochefort 10','Duvel','La Chouffe','St. Bernardus Abt 12','Gulden Draak','Delirium Tremens','Kwak','Tripel Karmeliet','Leffe Brune','Maredsous 8','Blanche de Namur','Pauwel Kwak','Saison Dupont','Westvleteren 12','Grisette','Lupulus','Affligem Tripel','Corsendonk Agnus','St. Feuillien Blonde','Brugse Zot','Straffe Hendrik','Achel Blonde','Ename Tripel','Troubadour Magma','Piraat','Zinnebir','Val Dieu Brune']
+              .map((øl, i) => `<li><input type="checkbox" id="øl${i}"> <label for="øl${i}">${øl}</label></li>`)
+              .join('') + '</ul>';
           break;
       }
       content.innerHTML = html;
@@ -148,3 +147,4 @@
   </script>
 </body>
 </html>
+
