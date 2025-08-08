@@ -59,6 +59,9 @@
     .quest-list li {
       margin: 10px 0;
     }
+    #rpgContainer {
+      padding: 20px;
+    }
   </style>
 </head>
 <body>
@@ -96,8 +99,10 @@
     <button onclick="showMainMenu()">Tilbake</button>
   </div>
 
+  <div id="rpgContainer" class="hidden"></div>
   <div id="pageContent" class="hidden"></div>
 
+  <script src="rpg.js"></script>
   <script>
     let engeCounter = localStorage.getItem('engeCount') || 0;
     document.addEventListener('DOMContentLoaded', () => {
@@ -129,6 +134,7 @@
       document.getElementById('mainMenu').classList.remove('hidden');
       document.getElementById('dailyContainer').classList.add('hidden');
       document.getElementById('pageContent').classList.add('hidden');
+      document.getElementById('rpgContainer').classList.add('hidden');
     }
 
     function openDailyQuests() {
@@ -140,60 +146,10 @@
       const content = document.getElementById('pageContent');
       content.innerHTML = `
         <h2>World of Fagcraft</h2>
-        <div class="tile double" onclick="startGame(1)">Kapittel 1: Myklus Oppvåkning</div>
-        <div class="tile double" onclick="startGame(2)">Kapittel 2: Flugten fra Vegard Beid</div>
+        <div class="tile double" onclick="startRPG(1)">Kapittel 1: Myklus Oppvåkning</div>
+        <div class="tile double" onclick="startRPG(2)">Kapittel 2: Flugten fra Vegard Beid</div>
         <button onclick="showMainMenu()">Tilbake</button>
       `;
-      content.classList.remove('hidden');
-      document.getElementById('mainMenu').classList.add('hidden');
-      document.getElementById('dailyContainer').classList.add('hidden');
-    }
-
-    function showKontingent(type) {
-      const content = document.getElementById('pageContent');
-      let html = '<button onclick="showMainMenu()">Tilbake</button>';
-      if (type === 'gir') {
-        html += `
-          <h2>Kontingentet gir</h2>
-          <img src="1.jpg" alt="Bilde 1" />
-          <img src="2.jpg" alt="Bilde 2" />
-          <img src="3.jpg" alt="Bilde 3" />
-          <img src="4.jpg" alt="Bilde 4" />
-          <img src="5.jpg" alt="Bilde 5" />
-        `;
-      } else if (type === 'tar') {
-        html += `
-          <h2>Kontingentet tar</h2>
-          <img src="do.jpg" alt="Kontingentet tar" />
-        `;
-      }
-      content.innerHTML = html;
-      content.classList.remove('hidden');
-      document.getElementById('mainMenu').classList.add('hidden');
-      document.getElementById('dailyContainer').classList.add('hidden');
-    }
-
-    function showPage(page) {
-      const content = document.getElementById('pageContent');
-      let html = '<button onclick="showMainMenu()">Tilbake</button>';
-      switch (page) {
-        case 'mykle':
-          html += '<h2>Mykle</h2><p>Han er en maskin på alle felt, drikker ekstreme mengder pils og er rett og slett fasit. Han er kjent som Mykle. En levende legende. En tårnbygger. En pilsens profet. Han er det femte giret. En som trekker slede i motvind. En som kan drikke opp det som ikke ble drukket. En katedral av kropp og karakter. Mykle er ikke et navn – det er et kall. Han brygger kun i styrtregn. Mykle trenger ikke huske – han vet. I regnskapets time kommer han med kvitteringen. Han leser kontoutskriften som andre leser poesi. Han får vin til å smake som pils og pils til å smake som seier. Når han går på do, skammer dassen seg. Mykle.</p>';
-          break;
-        case 'flyreiser':
-          html += '<h2>Flyreiser</h2><p>Potensielle flyvninger Molde – Brussel. Informasjon oppdateres fortløpende.</p>';
-          break;
-        case 'overnatting':
-          html += '<h2>Overnatting</h2><p>Informasjon om overnatting er TBD (To Be Determined).</p>';
-          break;
-        case 'ol':
-          html += '<h2>Belgiske øl</h2><ul>' +
-            ['Orval','Chimay Blue','Westmalle Tripel','Rochefort 10','Duvel','La Chouffe','St. Bernardus Abt 12','Gulden Draak','Delirium Tremens','Kwak','Tripel Karmeliet','Leffe Brune','Maredsous 8','Blanche de Namur','Pauwel Kwak','Saison Dupont','Westvleteren 12','Grisette','Lupulus','Affligem Tripel','Corsendonk Agnus','St. Feuillien Blonde','Brugse Zot','Straffe Hendrik','Achel Blonde','Ename Tripel','Troubadour Magma','Piraat','Zinnebir','Val Dieu Brune','Bush Ambrée','Tripel LeFort','Gouden Carolus Classic','De Dolle Oerbier','Rulles Estivale','Rochefort 6','Witkap Pater','Viven Master IPA','Bon Secours Blonde','Tongerlo Prior']
-              .map((øl, i) => `<li><input type="checkbox" id="øl${i}"> <label for="øl${i}">${øl}</label></li>`)
-              .join('') + '</ul>';
-          break;
-      }
-      content.innerHTML = html;
       content.classList.remove('hidden');
       document.getElementById('mainMenu').classList.add('hidden');
       document.getElementById('dailyContainer').classList.add('hidden');
@@ -202,7 +158,6 @@
     updateCountdown();
     setInterval(updateCountdown, 1000);
   </script>
-  <script src="rpg.js"></script>
 </body>
 </html>
 
