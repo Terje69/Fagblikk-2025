@@ -92,7 +92,7 @@ function runChapter1(container) {
         } else if (option.next === "gameover") {
           showGameOver();
         } else {
-          container.innerHTML = `<p>${option.consequence}</p><button onclick="showStep(${option.next})">Neste</button>`;
+          container.innerHTML = `<p>${option.consequence}</p><button onclick="showStep(${option.next})">Neste →</button>`;
         }
       };
       container.appendChild(btn);
@@ -101,7 +101,7 @@ function runChapter1(container) {
 
   function showSkumlos(returnStep) {
     container.innerHTML = `<p>Myklus befinner seg i Skumløs-skogen hvor glassholdet er forferdelig og det kun serveres Hansa. Han må be til St. Bernardus for å komme seg ut.</p>
-    <button onclick="showStep(${returnStep})">Be til St. Bernardus</button>`;
+    <button onclick="showStep(${returnStep})">Be til St. Bernardus →</button>`;
   }
 
   function showGameOver() {
@@ -190,7 +190,7 @@ function runChapter2(container) {
         if (option.next === "skumlos") {
           showSkumlos(stepIndex);
         } else {
-          container.innerHTML = `<p>${option.consequence}</p><button onclick="showStep(${option.next})">Neste</button>`;
+          container.innerHTML = `<p>${option.consequence}</p><button onclick="showStep(${option.next})">Neste →</button>`;
         }
       };
       container.appendChild(btn);
@@ -199,7 +199,7 @@ function runChapter2(container) {
 
   function showSkumlos(returnStep) {
     container.innerHTML = `<p>Myklus befinner seg i Skumløs-skogen hvor glassholdet er forferdelig og det kun serveres Hansa. Han må be til St. Bernardus for å komme seg ut.</p>
-    <button onclick="showStep(${returnStep})">Be til St. Bernardus</button>`;
+    <button onclick="showStep(${returnStep})">Be til St. Bernardus →</button>`;
   }
 
   showStep(0);
