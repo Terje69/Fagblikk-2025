@@ -62,8 +62,9 @@
   .tile.single {
     width: calc(50% - 20px);
     display: inline-block;
+    vertical-align: top;
   }
-  /* Full width for some */
+  /* Full width for noen */
   .tile.fullwidth {
     width: 100%;
     font-size: 1.4em;
@@ -91,7 +92,7 @@
     border-radius: 8px;
   }
   /* Skjule alle undersider */
-  #rpgContainer, #dailyContainer, #questContainer, #kontingentContainer {
+  #rpgContainer, #dailyContainer, #questContainer, #kontingentContainer, #pageContent {
     display: none;
     max-width: 900px;
     margin: 20px auto;
@@ -100,6 +101,12 @@
     border: 2px solid #7b5e3d;
     border-radius: 12px;
     box-shadow: 3px 3px 6px rgba(0,0,0,0.2);
+  }
+  /* Tekstinnhold på sider */
+  #pageContent p {
+    font-size: 1.1em;
+    line-height: 1.4em;
+    margin: 10px 0;
   }
 </style>
 
@@ -136,39 +143,103 @@
     document.getElementById('dailyContainer').style.display = 'none';
     document.getElementById('questContainer').style.display = 'none';
     document.getElementById('kontingentContainer').style.display = 'none';
+    document.getElementById('pageContent').style.display = 'none';
   }
 
-  // Start World of Fagcraft, vis kapittelvalg
+  // Åpne side via tile, tekstsider
+  function openPage(page) {
+    showMainMenu();
+    document.getElementById('pageContent').style.display = 'block';
+    const pc = document.getElementById('pageContent');
+    let html = '';
+
+    switch(page) {
+      case 'mykle':
+        html = `
+          <h2>Mykle</h2>
+          <p>Mykle er stedet der vi samles for god stemning og hygge. Her kan man bli kjent, ta en øl og slappe av før reisen fortsetter.</p>
+          <button onclick="showMainMenu()">Tilbake</button>
+        `;
+        break;
+      case 'flyreiser':
+        html = `
+          <h2>Flyreiser</h2>
+          <p>Her finner du informasjon om flyreisene våre, avgangstider, terminaler og praktiske tips for reisen til Belgia.</p>
+          <button onclick="showMainMenu()">Tilbake</button>
+        `;
+        break;
+      case 'overnatting':
+        html = `
+          <h2>Overnatting</h2>
+          <p>Overnatting er booket på hyggelige hoteller og pensjonater i Belgia. Her får du oversikt over hvor vi bor under turen.</p>
+          <button onclick="showMainMenu()">Tilbake</button>
+        `;
+        break;
+      case 'øl':
+        html = `
+          <h2>Belgiske øl</h2>
+          <p>Utforsk sjekklisten vår over ekte belgiske øl som du må prøve under turen! Vi satser på mange smaksopplevelser.</p>
+          <button onclick="showMainMenu()">Tilbake</button>
+        `;
+        break;
+      case 'sjekklist':
+        html = `
+          <h2>Sjekkliste</h2>
+          <p>Her finner du sjekklisten for ting å huske før og under turen – fra pakking til praktiske gjøremål.</p>
+          <button onclick="showMainMenu()">Tilbake</button>
+        `;
+        break;
+      default:
+        html = `<p>Siden finnes ikke.</p><button onclick="showMainMenu()">Tilbake</button>`;
+    }
+
+    pc.innerHTML = html;
+    document.getElementById('mainMenu').style.display = 'none';
+  }
+
+  // World of Fagcraft - kapittelvalg
   function openFagcraftMenu() {
     document.getElementById('mainMenu').style.display = 'none';
+    document.getElementById('pageContent').style.display = 'none';
+    document.getElementById('dailyContainer').style.display = 'none';
+    document.getElementById('questContainer').style.display = 'none';
+    document.getElementById('kontingentContainer').style.display = 'none';
+
     const container = document.getElementById('rpgContainer');
     container.style.display = 'block';
     container.innerHTML = `
       <div class="tile double" onclick="startGame(1)">Kapittel 1 – Myklus Oppvåkning</div>
       <div class="tile double" onclick="startGame(2)">Kapittel 2 – Flugten fra Vegard Beid</div>
-      <div class="tile double" onclick="openDailyQuests()">Daily Quests</div>
       <button onclick="showMainMenu()">Tilbake</button>
     `;
   }
 
   function startGame(chapter) {
-    // Kjører rpg.js sin funksjon
-    startRPG(chapter);
+    // Kaller funksjon i rpg.js som starter spillet
+    if(typeof startRPG === 'function') {
+      startRPG(chapter);
+    } else {
+      alert('RPG-spillet er ikke lastet.');
+    }
   }
 
-  // Daily Quests meny
+  // Daily Quests som egen side
   function openDailyQuests() {
+    document.getElementById('mainMenu').style.display = 'none';
+    document.getElementById('pageContent').style.display = 'none';
     document.getElementById('rpgContainer').style.display = 'none';
+    document.getElementById('questContainer').style.display = 'none';
+    document.getElementById('kontingentContainer').style.display = 'none';
+
     const container = document.getElementById('dailyContainer');
     container.style.display = 'block';
-    document.getElementById('mainMenu').style.display = 'none';
     container.innerHTML = `
       <h2 style="text-align:center; margin-bottom: 20px;">Daily Quests</h2>
       <div class="tile double" onclick="openQuest(1)">Dag 1</div>
       <div class="tile double" onclick="openQuest(2)">Dag 2</div>
       <div class="tile double" onclick="openQuest(3)">Dag 3</div>
       <div class="tile double" onclick="openQuest(4)">Dag 4</div>
-      <button onclick="openFagcraftMenu()">Tilbake</button>
+      <button onclick="showMainMenu()">Tilbake</button>
     `;
   }
 
@@ -178,14 +249,16 @@
     container.style.display = 'block';
     document.getElementById('dailyContainer').style.display = 'none';
 
+    let questHtml = '';
+
     if(day === 1) {
-      container.innerHTML = `
+      questHtml = `
         <h2>Dag 1: Daily Quests</h2>
         <ul>
           <li>Pils før flyplassen</li>
           <li>Pils hos Au Pairen</li>
           <li>Pils på første fly</li>
-          <li>Pils på flypassen</li>
+          <li>Pils på flyplassen</li>
           <li>Pils på andre fly</li>
           <li>Prøve en ny øl du aldri har smakt</li>
           <li>Spise noe fritert</li>
@@ -195,17 +268,24 @@
         <button onclick="openDailyQuests()">Tilbake</button>
       `;
     } else {
-      container.innerHTML = `
+      questHtml = `
         <h2>Dag ${day}</h2>
-        <p>Daily quests for denne dagen vil komme senere.</p>
+        <p>Daily quests for denne dagen kommer snart.</p>
         <button onclick="openDailyQuests()">Tilbake</button>
       `;
     }
+
+    container.innerHTML = questHtml;
   }
 
   // Vis kontingentet gir eller tar med bilder
   function showKontingent(type) {
     document.getElementById('mainMenu').style.display = 'none';
+    document.getElementById('pageContent').style.display = 'none';
+    document.getElementById('rpgContainer').style.display = 'none';
+    document.getElementById('dailyContainer').style.display = 'none';
+    document.getElementById('questContainer').style.display = 'none';
+
     const container = document.getElementById('kontingentContainer');
     container.style.display = 'block';
 
@@ -231,21 +311,6 @@
     }
   }
 
-  // Åpne side via tile
-  function openPage(page) {
-    switch(page) {
-      case 'mykle': alert('Mykle-siden er under utvikling'); break;
-      case 'flyreiser': alert('Flyreiser-siden er under utvikling'); break;
-      case 'overnatting': alert('Overnatting-siden er under utvikling'); break;
-      case 'øl': alert('Ølsjekklisten kommer snart'); break;
-      case 'sjekklist': alert('Sjekklisten kommer snart'); break;
-      case 'worldOfFagcraft': openFagcraftMenu(); break;
-      case 'kontingentGir': showKontingent('gir'); break;
-      case 'kontingentTar': showKontingent('tar'); break;
-      default: alert('Siden finnes ikke'); break;
-    }
-  }
-
   window.onload = () => {
     updateCountdown();
     intervalId = setInterval(updateCountdown, 1000);
@@ -258,19 +323,21 @@
   <div id="countdown">Nedtelling:</div>
 
   <div id="mainMenu">
-    <div class="tile double" onclick="openPage('mykle')">Mykle</div>
-    <div class="tile double" onclick="openPage('flyreiser')">Flyreiser</div>
+    <!-- To brede tiles øverst -->
+    <div class="tile double" onclick="openFagcraftMenu()">World of Fagcraft</div>
+    <div class="tile double" onclick="openDailyQuests()">Daily Quests</div>
 
+    <!-- Resten i to kolonner -->
+    <div class="tile single" onclick="openPage('mykle')">Mykle</div>
+    <div class="tile single" onclick="openPage('flyreiser')">Flyreiser</div>
     <div class="tile single" onclick="openPage('overnatting')">Overnatting</div>
     <div class="tile single" onclick="openPage('øl')">Belgiske øl</div>
     <div class="tile single" onclick="openPage('sjekklist')">Sjekkliste</div>
-
-    <div class="tile single" onclick="openPage('worldOfFagcraft')">World of Fagcraft</div>
-
-    <div class="tile single" onclick="openPage('kontingentGir')">Kontingentet gir</div>
-    <div class="tile single" onclick="openPage('kontingentTar')">Kontingentet tar</div>
+    <div class="tile single" onclick="showKontingent('gir')">Kontingentet gir</div>
+    <div class="tile single" onclick="showKontingent('tar')">Kontingentet tar</div>
   </div>
 
+  <div id="pageContent"></div>
   <div id="rpgContainer"></div>
   <div id="dailyContainer"></div>
   <div id="questContainer"></div>
