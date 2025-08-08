@@ -9,8 +9,10 @@
   <title>Fagblikk 2025</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background-color: #fdf6e3;
+      font-family: Georgia, serif;
+      background-color: #f4efe6;
+      background-image: url('parchment-background.jpg');
+      background-size: cover;
       margin: 0;
       padding: 0;
     }
@@ -21,13 +23,15 @@
 
     h1 {
       text-align: center;
-      color: #b03060;
+      color: #4b3621;
+      font-family: "Papyrus", fantasy;
     }
 
     .countdown {
       text-align: center;
       font-size: 2rem;
       margin-bottom: 1rem;
+      color: #4b3621;
     }
 
     .tiles {
@@ -37,17 +41,20 @@
     }
 
     .tile {
-      background-color: #87ceeb;
+      background-color: #d2b48c;
       padding: 1rem;
       border-radius: 10px;
       text-align: center;
       cursor: pointer;
-      box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
+      box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.3);
+      font-weight: bold;
+      font-family: "Papyrus", fantasy;
     }
 
     .tile.large {
       grid-column: span 2;
-      background-color: #ff69b4;
+      background-color: #deb887;
+      font-size: 1.2rem;
     }
 
     .hidden {
@@ -60,33 +67,20 @@
       text-align: center;
       font-weight: bold;
       cursor: pointer;
-      color: #333;
+      color: #4b3621;
     }
 
-    .rpg-step,
-    .rpg-outcome {
-      margin-top: 1rem;
+    ul {
+      list-style-type: square;
+      padding-left: 1.5rem;
     }
 
-    .rpg-option {
+    .checklist-item {
       margin: 0.5rem 0;
-      padding: 0.5rem;
-      background-color: #f0e68c;
-      border-radius: 8px;
-      cursor: pointer;
     }
 
-    .rpg-option:hover {
-      background-color: #eee8aa;
-    }
-
-    .next-btn {
-      margin-top: 1rem;
-      padding: 0.5rem 1rem;
-      background-color: #90ee90;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
+    input[type="checkbox"] {
+      margin-right: 0.5rem;
     }
   </style>
 </head>
@@ -97,7 +91,8 @@
     <div class="countdown" id="countdown"></div>
 
     <div class="tiles">
-      <div class="tile large" onclick="showPage('rpg')">World of Fagcraft</div>
+      <div class="tile large" onclick="showPage('rpg')">🛡️ World of Fagcraft</div>
+      <div class="tile large" onclick="showPage('dailyQuests')">📜 Daily Quests</div>
       <div class="tile" onclick="showPage('beerList')">Ølutfordring</div>
       <div class="tile" onclick="showPage('memes')">Potensielle flyvninger</div>
       <div class="tile" onclick="showPage('accommodation')">Overnatting</div>
@@ -108,6 +103,33 @@
       <div class="tile" onclick="showPage('runners')">Kontingentets løpere</div>
       <div class="tile" onclick="showPage('mykle')">Mykle</div>
     </div>
+  </div>
+
+  <div class="container hidden" id="dailyQuests">
+    <div class="back-btn" onclick="goBack()">← Tilbake</div>
+    <h2>Daily Quests</h2>
+    <div class="tiles">
+      <div class="tile large" onclick="showPage('day1')">Dag 1</div>
+      <div class="tile large">Dag 2<br><small>Daily quests for denne dagen vil komme senere</small></div>
+      <div class="tile large">Dag 3<br><small>Daily quests for denne dagen vil komme senere</small></div>
+      <div class="tile large">Dag 4<br><small>Daily quests for denne dagen vil komme senere</small></div>
+    </div>
+  </div>
+
+  <div class="container hidden" id="day1">
+    <div class="back-btn" onclick="goBack()">← Tilbake</div>
+    <h2>Dag 1: Sjekkliste</h2>
+    <ul>
+      <li class="checklist-item"><input type="checkbox">Pils før flyplassen</li>
+      <li class="checklist-item"><input type="checkbox">Pils hos Au Pairen</li>
+      <li class="checklist-item"><input type="checkbox">Pils på første fly</li>
+      <li class="checklist-item"><input type="checkbox">Pils på flypassen</li>
+      <li class="checklist-item"><input type="checkbox">Pils på andre fly</li>
+      <li class="checklist-item"><input type="checkbox">Prøve en ny øl du aldri har smakt</li>
+      <li class="checklist-item"><input type="checkbox">Spise noe fritert</li>
+      <li class="checklist-item"><input type="checkbox">Loote en gjenstand</li>
+      <li class="checklist-item"><input type="checkbox">Hemse</li>
+    </ul>
   </div>
 
   <div class="container hidden" id="beerList">
@@ -179,6 +201,9 @@
 
   <script src="rpg.js"></script>
   <script src="main.js"></script>
+</body>
+
+</html>
 </body>
 
 </html>
