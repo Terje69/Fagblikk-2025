@@ -102,62 +102,93 @@
   <div id="rpgContainer" class="hidden"></div>
   <div id="pageContent" class="hidden"></div>
 
-  <script src="rpg.js"></script>
-  <script>
-    let engeCounter = localStorage.getItem('engeCount') || 0;
-    document.addEventListener('DOMContentLoaded', () => {
-      document.getElementById('engeCount').innerText = engeCounter;
-    });
+<script src="rpg.js"></script>
+<script>
+  let engeCounter = localStorage.getItem('engeCount') || 0;
+  document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('engeCount').innerText = engeCounter;
+  });
 
-    function incrementCounter() {
-      engeCounter++;
-      localStorage.setItem('engeCount', engeCounter);
-      document.getElementById('engeCount').innerText = engeCounter;
+  function incrementCounter() {
+    engeCounter++;
+    localStorage.setItem('engeCount', engeCounter);
+    document.getElementById('engeCount').innerText = engeCounter;
+  }
+
+  function updateCountdown() {
+    const target = new Date("2025-10-09T07:00:00").getTime();
+    const now = new Date().getTime();
+    const diff = target - now;
+    if (diff < 0) {
+      document.getElementById("countdown").innerText = "Turen har startet!";
+      return;
     }
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const minutes = Math.floor((diff / (1000 * 60)) % 60);
+    const seconds = Math.floor((diff / 1000) % 60);
+    document.getElementById("countdown").innerText = `Nedtelling: ${days}d ${hours}t ${minutes}m ${seconds}s`;
+  }
 
-    function updateCountdown() {
-      const target = new Date("2025-10-09T07:00:00").getTime();
-      const now = new Date().getTime();
-      const diff = target - now;
-      if (diff < 0) {
-        document.getElementById("countdown").innerText = "Turen har startet!";
-        return;
-      }
-      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-      const minutes = Math.floor((diff / (1000 * 60)) % 60);
-      const seconds = Math.floor((diff / 1000) % 60);
-      document.getElementById("countdown").innerText = `Nedtelling: ${days}d ${hours}t ${minutes}m ${seconds}s`;
-    }
+  function showMainMenu() {
+    document.getElementById('mainMenu').classList.remove('hidden');
+    document.getElementById('dailyContainer').classList.add('hidden');
+    document.getElementById('pageContent').classList.add('hidden');
+    document.getElementById('rpgContainer').classList.add('hidden');
+  }
 
-    function showMainMenu() {
-      document.getElementById('mainMenu').classList.remove('hidden');
-      document.getElementById('dailyContainer').classList.add('hidden');
-      document.getElementById('pageContent').classList.add('hidden');
-      document.getElementById('rpgContainer').classList.add('hidden');
-    }
+  function openDailyQuests() {
+    document.getElementById('mainMenu').classList.add('hidden');
+    document.getElementById('dailyContainer').classList.remove('hidden');
+  }
 
-    function openDailyQuests() {
-      document.getElementById('mainMenu').classList.add('hidden');
-      document.getElementById('dailyContainer').classList.remove('hidden');
-    }
+  function openFagcraftMenu() {
+    const content = document.getElementById('pageContent');
+    content.innerHTML = `
+      <h2>World of Fagcraft</h2>
+      <div class="tile double" onclick="startGame(1)">Kapittel 1: Myklus Oppvåkning</div>
+      <div class="tile double" onclick="startGame(2)">Kapittel 2: Flugten fra Vegard Beid</div>
+      <button onclick="showMainMenu()">Tilbake</button>
+    `;
+    content.classList.remove('hidden');
+    document.getElementById('mainMenu').classList.add('hidden');
+    document.getElementById('dailyContainer').classList.add('hidden');
+    document.getElementById('rpgContainer').classList.add('hidden');
+  }
 
-    function openFagcraftMenu() {
-      const content = document.getElementById('pageContent');
+  function startGame(chapter) {
+    document.getElementById("pageContent").classList.add("hidden");
+    document.getElementById("rpgContainer").classList.remove("hidden");
+    startRPG(chapter);
+  }
+
+  function showKontingent(type) {
+    const content = document.getElementById("pageContent");
+    document.getElementById("mainMenu").classList.add("hidden");
+    content.classList.remove("hidden");
+
+    if (type === 'gir') {
       content.innerHTML = `
-        <h2>World of Fagcraft</h2>
-        <div class="tile double" onclick="startRPG(1)">Kapittel 1: Myklus Oppvåkning</div>
-        <div class="tile double" onclick="startRPG(2)">Kapittel 2: Flugten fra Vegard Beid</div>
+        <h2>Kontingentet gir</h2>
+        <img src="1.jpg" alt="Bilde 1" />
+        <img src="2.jpg" alt="Bilde 2" />
+        <img src="3.jpg" alt="Bilde 3" />
+        <img src="4.jpg" alt="Bilde 4" />
+        <img src="5.jpg" alt="Bilde 5" />
         <button onclick="showMainMenu()">Tilbake</button>
       `;
-      content.classList.remove('hidden');
-      document.getElementById('mainMenu').classList.add('hidden');
-      document.getElementById('dailyContainer').classList.add('hidden');
+    } else {
+      content.innerHTML = `
+        <h2>Kontingentet tar</h2>
+        <img src="do.jpg" alt="Kontingentet tar" />
+        <button onclick="showMainMenu()">Tilbake</button>
+      `;
     }
+  }
 
-    updateCountdown();
-    setInterval(updateCountdown, 1000);
-  </script>
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+</script>
 </body>
 </html>
 
