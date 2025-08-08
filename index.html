@@ -41,6 +41,11 @@
       font-size: 1.5em;
       font-weight: bold;
     }
+    .tile img {
+      display: block;
+      margin: 0 auto 10px;
+      max-height: 50px;
+    }
     .tile:hover {
       background-color: #f9e8b2;
     }
@@ -69,6 +74,10 @@
     <div class="tile" onclick="showPage('ol')">Belgiske øl</div>
     <div class="tile" onclick="showKontingent('gir')">Kontingentet gir</div>
     <div class="tile" onclick="showKontingent('tar')">Kontingentet tar</div>
+    <div class="tile" onclick="incrementCounter()">
+      <img src="eirik.png" alt="Eirik Enge" />
+      <div>Eirik Enge-counter: <span id="engeCount">0</span></div>
+    </div>
   </div>
 
   <div id="dailyContainer" class="hidden">
@@ -90,6 +99,17 @@
   <div id="pageContent" class="hidden"></div>
 
   <script>
+    let engeCounter = localStorage.getItem('engeCount') || 0;
+    document.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('engeCount').innerText = engeCounter;
+    });
+
+    function incrementCounter() {
+      engeCounter++;
+      localStorage.setItem('engeCount', engeCounter);
+      document.getElementById('engeCount').innerText = engeCounter;
+    }
+
     function updateCountdown() {
       const target = new Date("2025-10-09T07:00:00").getTime();
       const now = new Date().getTime();
@@ -121,9 +141,7 @@
       let html = '<button onclick="showMainMenu()">Tilbake</button>';
       switch (page) {
         case 'mykle':
-          html += '<h2>Mykle</h2><p>Han er en maskin på alle felt, drikker ekstreme mengder pils og er rett og slett fasit. Han er kjent som Mykle. En levende legende. En tårnbygger. En pilsens profet. Han er det femte giret. En som trekker slede i motvind. En som kan drikke opp det som ikke ble drukket. En katedral av kropp og karakter. Mykle er ikke et navn – det er et kall.</p>';
-          html += '<p>Mykle har vært på fjelltur med sandaler, festet med kongelige, og tømmer kasser med pils mens han forklarer de lange linjene i EØS-avtalen. Han trenger ikke GPS – for Belgia kommer til ham. Han trenger ikke kart – han kjenner veien gjennom sjelens kraft. Mykle kan måle tid i antall slurker, og forstå politikk gjennom smaken på en Tripel Karmeliet. Når han går inn på et utested, stopper DJ-en musikken for å høre hans vurdering av taplisten. Ingen glass er for store. Ingen diskusjon for komplisert. Han løser logistikk som en feltgeneral og pakker som en mester i tetris. Mykle er den som tar første øl, og den som holder siste skål. Mykle har stålkontroll, men også blikk som kan mykne enhver bartender.</p>';
-          html += '<p>Han går i Birkenstocks og kappe. Han kan snekre en terrasse og samtidig diskutere Kant. Han har alltid rett mengde kontanter i rett valuta. Han kjenner alle reglene, men bøyer dem med stil. Når han sover, samler kroppen seg som en gjæringsprosess. Når han våkner, er han en ny batch med inspirasjon. Mykle er ikke bare klar for Belgia. Belgia er klar for Mykle.</p>';
+          html += '<h2>Mykle</h2><p>Han er en maskin på alle felt, drikker ekstreme mengder pils og er rett og slett fasit. Han er kjent som Mykle. En levende legende. En tårnbygger. En pilsens profet. Han er det femte giret. En som trekker slede i motvind. En som kan drikke opp det som ikke ble drukket. En katedral av kropp og karakter. Mykle er ikke et navn – det er et kall. Han brygger kun i styrtregn. Mykle trenger ikke huske – han vet. I regnskapets time kommer han med kvitteringen. Han leser kontoutskriften som andre leser poesi. Han får vin til å smake som pils og pils til å smake som seier. Når han går på do, skammer dassen seg. Mykle.</p>';
           break;
         case 'flyreiser':
           html += '<h2>Flyreiser</h2><p>Potensielle flyvninger Molde – Brussel. Informasjon oppdateres fortløpende.</p>';
@@ -133,7 +151,7 @@
           break;
         case 'ol':
           html += '<h2>Belgiske øl</h2><ul>' +
-            ['Orval','Chimay Blue','Westmalle Tripel','Rochefort 10','Duvel','La Chouffe','St. Bernardus Abt 12','Gulden Draak','Delirium Tremens','Kwak','Tripel Karmeliet','Leffe Brune','Maredsous 8','Blanche de Namur','Pauwel Kwak','Saison Dupont','Westvleteren 12','Grisette','Lupulus','Affligem Tripel','Corsendonk Agnus','St. Feuillien Blonde','Brugse Zot','Straffe Hendrik','Achel Blonde','Ename Tripel','Troubadour Magma','Piraat','Zinnebir','Val Dieu Brune']
+            ['Orval','Chimay Blue','Westmalle Tripel','Rochefort 10','Duvel','La Chouffe','St. Bernardus Abt 12','Gulden Draak','Delirium Tremens','Kwak','Tripel Karmeliet','Leffe Brune','Maredsous 8','Blanche de Namur','Pauwel Kwak','Saison Dupont','Westvleteren 12','Grisette','Lupulus','Affligem Tripel','Corsendonk Agnus','St. Feuillien Blonde','Brugse Zot','Straffe Hendrik','Achel Blonde','Ename Tripel','Troubadour Magma','Piraat','Zinnebir','Val Dieu Brune','Bush Ambrée','Tripel LeFort','Gouden Carolus Classic','De Dolle Oerbier','Rulles Estivale','Rochefort 6','Witkap Pater','Viven Master IPA','Bon Secours Blonde','Tongerlo Prior']
               .map((øl, i) => `<li><input type="checkbox" id="øl${i}"> <label for="øl${i}">${øl}</label></li>`)
               .join('') + '</ul>';
           break;
