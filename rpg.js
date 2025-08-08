@@ -90,7 +90,11 @@ function runChapter1(container) {
         } else if (option.next === "gameover") {
           showGameOver();
         } else {
-          container.innerHTML = `<p>${option.consequence}</p><button onclick="showStep(${option.next})">Neste</button>`;
+          container.innerHTML = `<p>${option.consequence}</p>`;
+const nextBtn = document.createElement("button");
+nextBtn.textContent = "Neste";
+nextBtn.onclick = () => showStep(option.next);
+container.appendChild(nextBtn);
         }
       };
       container.appendChild(btn);
