@@ -56,7 +56,7 @@
     .quest-list li {
       margin: 10px 0;
     }
-    #rpgContainer {
+    #rpgContainer, #pageContent, #dailyContainer {
       padding: 20px;
     }
   </style>
@@ -104,6 +104,8 @@
     let engeCounter = localStorage.getItem('engeCount') || 0;
     document.addEventListener('DOMContentLoaded', () => {
       document.getElementById('engeCount').innerText = engeCounter;
+      updateCountdown();
+      setInterval(updateCountdown, 1000);
     });
 
     function incrementCounter() {
@@ -150,52 +152,44 @@
       content.classList.remove('hidden');
       document.getElementById('mainMenu').classList.add('hidden');
       document.getElementById('dailyContainer').classList.add('hidden');
+      document.getElementById('rpgContainer').classList.add('hidden');
     }
 
-    function showPage(pageName) {
+    function showPage(page) {
       const content = document.getElementById('pageContent');
-      let pageText = '';
-      if (pageName === 'mykle') {
-        pageText = `<h2>Mykle</h2><p>Mykle er fasit. Mykle er 5 gangen. Mykle er dyp innsikt og lavt blodsukker. Han våkner, han knekker, han jekker.</p>`;
-      } else if (pageName === 'flyreiser') {
-        pageText = `<h2>Flyreiser</h2><p>Avgang fra Molde 07:00, ankomst Brussel 13:10 via Oslo. Retur 12:05 fra Brussel mandag. Ikke glem pass og godt humør.</p>`;
-      } else if (pageName === 'overnatting') {
-        pageText = `<h2>Overnatting</h2><p>Boenheten heter 'Maison du Fag' og ligger sentralt i Gent med kort vei til både kultur og kvasi-kultur.</p>`;
-      } else if (pageName === 'ol') {
-        pageText = `<h2>Belgiske øl</h2><ul><li>Chimay Blå</li><li>Westmalle Tripel</li><li>Rochefort 10</li><li>St. Bernardus Abt 12</li><li>Duvel</li><li>La Chouffe</li><li>Orval</li><li>Kwak</li><li>Tripel Karmeliet</li><li>Gulden Draak</li><li>Delirium Tremens</li><li>Leffe Brune</li><li>Pauwel Kwak</li><li>De Dolle Dulle Teve</li><li>Struise Pannepot</li></ul>`;
+      let html = '<button onclick="showMainMenu()">Tilbake</button>';
+      if (page === 'mykle') {
+        html += '<h2>Mykle</h2><p>Mykle er en legende. 5 gangen.</p>';
+      } else if (page === 'flyreiser') {
+        html += '<h2>Flyreiser</h2><p>Informasjon om flytider, avgang og mellomlanding.</p>';
+      } else if (page === 'overnatting') {
+        html += '<h2>Overnatting</h2><p>Airbnb i Brugge. Vi har hele huset.</p>';
+      } else if (page === 'ol') {
+        html += '<h2>Belgiske øl</h2><ul><li>Westvleteren 12</li><li>Rochefort 10</li><li>Chimay Blue</li><li>Orval</li><li>St. Bernardus Abt 12</li></ul>';
       }
-      content.innerHTML = pageText + '<button onclick="showMainMenu()">Tilbake</button>';
+      content.innerHTML = html;
       content.classList.remove('hidden');
       document.getElementById('mainMenu').classList.add('hidden');
     }
 
     function showKontingent(type) {
       const content = document.getElementById('pageContent');
+      let html = '<button onclick="showMainMenu()">Tilbake</button>';
       if (type === 'gir') {
-        content.innerHTML = `
-          <h2>Kontingentet gir</h2>
-          <img src="1.jpg" alt="Bilde 1" />
-          <img src="2.jpg" alt="Bilde 2" />
-          <img src="3.jpg" alt="Bilde 3" />
-          <img src="4.jpg" alt="Bilde 4" />
-          <img src="5.jpg" alt="Bilde 5" />
-          <button onclick="showMainMenu()">Tilbake</button>
-        `;
+        html += '<h2>Kontingentet gir</h2>';
+        for (let i = 1; i <= 5; i++) {
+          html += `<img src="${i}.jpg" alt="Bilde ${i}" style="max-width:100%; margin-bottom: 10px;" />`;
+        }
       } else {
-        content.innerHTML = `
-          <h2>Kontingentet tar</h2>
-          <img src="do.jpg" alt="Kontingentet tar" />
-          <button onclick="showMainMenu()">Tilbake</button>
-        `;
+        html += '<h2>Kontingentet tar</h2><img src="do.jpg" alt="Kontingentet tar" style="max-width:100%;" />';
       }
+      content.innerHTML = html;
       content.classList.remove('hidden');
       document.getElementById('mainMenu').classList.add('hidden');
     }
-
-    updateCountdown();
-    setInterval(updateCountdown, 1000);
   </script>
 </body>
 </html>
+
 
 
