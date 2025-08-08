@@ -1,209 +1,137 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="no">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="manifest" href="manifest.json" />
-  <link rel="icon" href="icon-192.png" type="image/png">
-  <title>Fagblikk 2025</title>
+  <title>Mykle</title>
+  <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap" rel="stylesheet">
   <style>
     body {
-      font-family: Georgia, serif;
-      background-color: #f4efe6;
-      background-image: url('parchment-background.jpg');
-      background-size: cover;
       margin: 0;
-      padding: 0;
+      font-family: 'MedievalSharp', cursive;
+      background-color: #f4f1e5;
+      color: #2e1d0e;
     }
-
-    .container {
-      padding: 1rem;
-    }
-
-    h1 {
-      text-align: center;
-      color: #4b3621;
-      font-family: "Papyrus", fantasy;
-    }
-
-    .countdown {
-      text-align: center;
-      font-size: 2rem;
-      margin-bottom: 1rem;
-      color: #4b3621;
-    }
-
-    .tiles {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-      gap: 1rem;
-    }
-
     .tile {
-      background-color: #d2b48c;
-      padding: 1rem;
-      border-radius: 10px;
+      display: inline-block;
+      width: 45%;
+      margin: 2%;
+      padding: 30px;
+      background-color: #fff4d1;
+      border: 2px solid #7b5e3d;
+      border-radius: 12px;
       text-align: center;
       cursor: pointer;
-      box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.3);
-      font-weight: bold;
-      font-family: "Papyrus", fantasy;
+      box-shadow: 3px 3px 6px rgba(0,0,0,0.2);
     }
-
-    .tile.large {
-      grid-column: span 2;
-      background-color: #deb887;
-      font-size: 1.2rem;
+    .tile.double {
+      width: 94%;
+      font-size: 1.5em;
     }
-
-    .hidden {
-      display: none;
+    .tile:hover {
+      background-color: #f9e8b2;
     }
-
-    .back-btn {
-      display: block;
-      margin: 1rem 0;
-      text-align: center;
-      font-weight: bold;
+    #rpgContainer, #dailyContainer, #questContainer, #kontingentContainer {
+      padding: 20px;
+    }
+    button {
+      padding: 10px 20px;
+      margin: 10px;
+      font-family: inherit;
+      font-size: 1em;
+      background-color: #fff4d1;
+      border: 2px solid #7b5e3d;
       cursor: pointer;
-      color: #4b3621;
+      border-radius: 8px;
     }
-
-    ul {
-      list-style-type: square;
-      padding-left: 1.5rem;
+    button:hover {
+      background-color: #f9e8b2;
     }
-
-    .checklist-item {
-      margin: 0.5rem 0;
-    }
-
-    input[type="checkbox"] {
-      margin-right: 0.5rem;
+    img {
+      max-width: 100%;
+      height: auto;
+      margin-bottom: 20px;
     }
   </style>
+  <script src="rpg.js" defer></script>
+  <script>
+    function startGame(chapter) {
+      document.getElementById("mainMenu").style.display = "none";
+      document.getElementById("rpgContainer").style.display = "block";
+      startRPG(chapter);
+    }
+
+    function goToDailyQuests() {
+      document.getElementById("mainMenu").style.display = "none";
+      document.getElementById("dailyContainer").style.display = "block";
+    }
+
+    function openQuest(day) {
+      document.getElementById("dailyContainer").style.display = "none";
+      const container = document.getElementById("questContainer");
+      container.style.display = "block";
+
+      if (day === 1) {
+        container.innerHTML = `<h2>Dag 1: Daily Quests</h2>
+        <ul>
+          <li>Pils før flyplassen</li>
+          <li>Pils hos Au Pairen</li>
+          <li>Pils på første fly</li>
+          <li>Pils på flypassen</li>
+          <li>Pils på andre fly</li>
+          <li>Prøve en ny øl du aldri har smakt</li>
+          <li>Spise noe fritert</li>
+          <li>Loote en gjenstand</li>
+          <li>Hemse</li>
+        </ul>
+        <button onclick="goToDailyQuests()">Tilbake</button>`;
+      } else {
+        container.innerHTML = `<h2>Dag ${day}</h2><p>Daily quests for denne dagen vil komme senere.</p><button onclick="goToDailyQuests()">Tilbake</button>`;
+      }
+    }
+
+    function showKontingent(type) {
+      document.getElementById("mainMenu").style.display = "none";
+      const container = document.getElementById("kontingentContainer");
+      container.style.display = "block";
+      if (type === 'gir') {
+        container.innerHTML = `
+          <h2>Kontingentet gir</h2>
+          <img src="1.jpg" alt="Bilde 1" />
+          <img src="2.jpg" alt="Bilde 2" />
+          <img src="3.jpg" alt="Bilde 3" />
+          <img src="4.jpg" alt="Bilde 4" />
+          <img src="5.jpg" alt="Bilde 5" />
+          <button onclick="location.reload()">Tilbake</button>
+        `;
+      } else {
+        container.innerHTML = `
+          <h2>Kontingentet tar</h2>
+          <img src="do.jpg" alt="Kontingentet tar" />
+          <button onclick="location.reload()">Tilbake</button>
+        `;
+      }
+    }
+  </script>
 </head>
-
 <body>
-  <div class="container" id="main">
-    <h1>Fagblikk 2025</h1>
-    <div class="countdown" id="countdown"></div>
-
-    <div class="tiles">
-      <div class="tile large" onclick="showPage('rpg')">🛡️ World of Fagcraft</div>
-      <div class="tile large" onclick="showPage('dailyQuests')">📜 Daily Quests</div>
-      <div class="tile" onclick="showPage('beerList')">Ølutfordring</div>
-      <div class="tile" onclick="showPage('memes')">Potensielle flyvninger</div>
-      <div class="tile" onclick="showPage('accommodation')">Overnatting</div>
-      <div class="tile" onclick="showPage('participants')">Deltakerliste</div>
-      <div class="tile" onclick="incrementCounter()">Eirik Enge-counter<br><span id="engeCount">0</span></div>
-      <div class="tile" onclick="showPage('giver')">Kontingentet gir</div>
-      <div class="tile" onclick="showPage('taker')">Kontingentet tar</div>
-      <div class="tile" onclick="showPage('runners')">Kontingentets løpere</div>
-      <div class="tile" onclick="showPage('mykle')">Mykle</div>
-    </div>
+  <div id="mainMenu">
+    <div class="tile double" onclick="startGame(1)">World of Fagcraft: Kapittel 1 – Myklus Oppvåkning</div>
+    <div class="tile double" onclick="startGame(2)">World of Fagcraft: Kapittel 2 – Flugten fra Vegard Beid</div>
+    <div class="tile double" onclick="goToDailyQuests()">Daily Quests</div>
+    <div class="tile" onclick="showKontingent('gir')">Kontingentet gir</div>
+    <div class="tile" onclick="showKontingent('tar')">Kontingentet tar</div>
   </div>
 
-  <div class="container hidden" id="dailyQuests">
-    <div class="back-btn" onclick="goBack()">← Tilbake</div>
-    <h2>Daily Quests</h2>
-    <div class="tiles">
-      <div class="tile large" onclick="showPage('day1')">Dag 1</div>
-      <div class="tile large">Dag 2<br><small>Daily quests for denne dagen vil komme senere</small></div>
-      <div class="tile large">Dag 3<br><small>Daily quests for denne dagen vil komme senere</small></div>
-      <div class="tile large">Dag 4<br><small>Daily quests for denne dagen vil komme senere</small></div>
-    </div>
+  <div id="rpgContainer" style="display:none;"></div>
+  <div id="dailyContainer" style="display:none;">
+    <div class="tile double" onclick="openQuest(1)">Dag 1</div>
+    <div class="tile double" onclick="openQuest(2)">Dag 2</div>
+    <div class="tile double" onclick="openQuest(3)">Dag 3</div>
+    <div class="tile double" onclick="openQuest(4)">Dag 4</div>
+    <button onclick="location.reload()">Tilbake</button>
   </div>
-
-  <div class="container hidden" id="day1">
-    <div class="back-btn" onclick="goBack()">← Tilbake</div>
-    <h2>Dag 1: Sjekkliste</h2>
-    <ul>
-      <li class="checklist-item"><input type="checkbox">Pils før flyplassen</li>
-      <li class="checklist-item"><input type="checkbox">Pils hos Au Pairen</li>
-      <li class="checklist-item"><input type="checkbox">Pils på første fly</li>
-      <li class="checklist-item"><input type="checkbox">Pils på flypassen</li>
-      <li class="checklist-item"><input type="checkbox">Pils på andre fly</li>
-      <li class="checklist-item"><input type="checkbox">Prøve en ny øl du aldri har smakt</li>
-      <li class="checklist-item"><input type="checkbox">Spise noe fritert</li>
-      <li class="checklist-item"><input type="checkbox">Loote en gjenstand</li>
-      <li class="checklist-item"><input type="checkbox">Hemse</li>
-    </ul>
-  </div>
-
-  <div class="container hidden" id="beerList">
-    <div class="back-btn" onclick="goBack()">← Tilbake</div>
-    <h2>Ølutfordring</h2>
-    <ul id="beerChecklist"></ul>
-  </div>
-
-  <div class="container hidden" id="memes">
-    <div class="back-btn" onclick="goBack()">← Tilbake</div>
-    <h2>Flyreiser Molde-Brussel</h2>
-    <p>Se flyselskaper som KLM, SAS og Brussels Airlines for oppdaterte ruter mellom 9.–10. oktober.</p>
-  </div>
-
-  <div class="container hidden" id="accommodation">
-    <div class="back-btn" onclick="goBack()">← Tilbake</div>
-    <h2>Overnatting</h2>
-    <p>Info kommer. TBD.</p>
-  </div>
-
-  <div class="container hidden" id="participants">
-    <div class="back-btn" onclick="goBack()">← Tilbake</div>
-    <h2>Deltakerliste</h2>
-    <ul>
-      <li>Mykle</li>
-      <li>DJ Høgz</li>
-      <li>Russe_Chris</li>
-      <li>Vegard Beid</li>
-      <li>Heim E. Vernet</li>
-      <li>Rulle</li>
-    </ul>
-  </div>
-
-  <div class="container hidden" id="giver">
-    <div class="back-btn" onclick="goBack()">← Tilbake</div>
-    <h2>Kontingentet gir</h2>
-    <p>...glede, øl og varme minner.</p>
-  </div>
-
-  <div class="container hidden" id="taker">
-    <div class="back-btn" onclick="goBack()">← Tilbake</div>
-    <h2>Kontingentet tar</h2>
-    <p>...sjelen din.</p>
-  </div>
-
-  <div class="container hidden" id="runners">
-    <div class="back-btn" onclick="goBack()">← Tilbake</div>
-    <h2>Kontingentets løpere</h2>
-    <p>Deltakerne på Fagblikk oppfordres til å trene jevnlig for å forberede kroppen for påkjenningene en slik tur innebærer. Målet for høst-treningene er å løpe 1 mil på under 50 min. Må dokumenteres elektronisk.</p>
-  </div>
-
-  <div class="container hidden" id="mykle">
-    <div class="back-btn" onclick="goBack()">← Tilbake</div>
-    <h2>Mykle</h2>
-    <p>Mykle er en maskin på alle felt. Han drikker ekstreme mengder pils og er rett og slett fasit. Enten det er snakk om faglige vurderinger, sportslige prestasjoner eller humoristiske innspill, stiller han alltid med høy kvalitet og bredde.</p>
-    <p>Han kan identifisere riktige glass, rette ut kast i sikten og avgjøre temperatur på Jupiler innen én desimal. Med utstrakt kompetanse og høy sosial kapital setter han spor etter seg hvor enn han går.</p>
-    <p>Han er også den som kjenner systembolaget bedre enn noen annen – og er alltid førstevalg som rådgiver ved vanskelige avgjørelser.</p>
-  </div>
-
-  <div class="container hidden" id="rpg">
-    <div class="back-btn" onclick="goBack()">← Tilbake</div>
-    <h2>World of Fagcraft</h2>
-    <div class="tiles">
-      <div class="tile" onclick="startRPG(1)">Kapittel 1: Myklus Oppvåkning</div>
-      <div class="tile" onclick="startRPG(2)">Kapittel 2: Jakten på Jupiler</div>
-    </div>
-    <div id="rpgContainer"></div>
-  </div>
-
-  <script src="rpg.js"></script>
-  <script src="main.js"></script>
+  <div id="questContainer" style="display:none;"></div>
+  <div id="kontingentContainer" style="display:none;"></div>
 </body>
-
-</html>
-</body>
-
 </html>
