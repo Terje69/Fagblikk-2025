@@ -35,7 +35,7 @@
       text-align: center;
       cursor: pointer;
       box-shadow: 2px 2px 6px rgba(0,0,0,0.2);
-      font-size: 1.5em;
+      font-size: 1.2em;
       font-weight: bold;
     }
     .tile img {
@@ -152,11 +152,50 @@
       document.getElementById('dailyContainer').classList.add('hidden');
     }
 
+    function showPage(pageName) {
+      const content = document.getElementById('pageContent');
+      let pageText = '';
+      if (pageName === 'mykle') {
+        pageText = `<h2>Mykle</h2><p>Mykle er fasit. Mykle er 5 gangen. Mykle er dyp innsikt og lavt blodsukker. Han våkner, han knekker, han jekker.</p>`;
+      } else if (pageName === 'flyreiser') {
+        pageText = `<h2>Flyreiser</h2><p>Avgang fra Molde 07:00, ankomst Brussel 13:10 via Oslo. Retur 12:05 fra Brussel mandag. Ikke glem pass og godt humør.</p>`;
+      } else if (pageName === 'overnatting') {
+        pageText = `<h2>Overnatting</h2><p>Boenheten heter 'Maison du Fag' og ligger sentralt i Gent med kort vei til både kultur og kvasi-kultur.</p>`;
+      } else if (pageName === 'ol') {
+        pageText = `<h2>Belgiske øl</h2><ul><li>Chimay Blå</li><li>Westmalle Tripel</li><li>Rochefort 10</li><li>St. Bernardus Abt 12</li><li>Duvel</li><li>La Chouffe</li><li>Orval</li><li>Kwak</li><li>Tripel Karmeliet</li><li>Gulden Draak</li><li>Delirium Tremens</li><li>Leffe Brune</li><li>Pauwel Kwak</li><li>De Dolle Dulle Teve</li><li>Struise Pannepot</li></ul>`;
+      }
+      content.innerHTML = pageText + '<button onclick="showMainMenu()">Tilbake</button>';
+      content.classList.remove('hidden');
+      document.getElementById('mainMenu').classList.add('hidden');
+    }
+
+    function showKontingent(type) {
+      const content = document.getElementById('pageContent');
+      if (type === 'gir') {
+        content.innerHTML = `
+          <h2>Kontingentet gir</h2>
+          <img src="1.jpg" alt="Bilde 1" />
+          <img src="2.jpg" alt="Bilde 2" />
+          <img src="3.jpg" alt="Bilde 3" />
+          <img src="4.jpg" alt="Bilde 4" />
+          <img src="5.jpg" alt="Bilde 5" />
+          <button onclick="showMainMenu()">Tilbake</button>
+        `;
+      } else {
+        content.innerHTML = `
+          <h2>Kontingentet tar</h2>
+          <img src="do.jpg" alt="Kontingentet tar" />
+          <button onclick="showMainMenu()">Tilbake</button>
+        `;
+      }
+      content.classList.remove('hidden');
+      document.getElementById('mainMenu').classList.add('hidden');
+    }
+
     updateCountdown();
     setInterval(updateCountdown, 1000);
   </script>
 </body>
 </html>
-
 
 
