@@ -121,7 +121,7 @@
       let html = '<button onclick="showMainMenu()">Tilbake</button>';
       switch (page) {
         case 'mykle':
-          html += '<h2>Mykle</h2><p>Han er en maskin på alle felt, drikker ekstreme mengder pils og er rett og slett fasit. Han er kjent som Mykle. En levende legende. En tårnbygger. En pilsens profet. Han er det femte giret. En som trekker slede i motvind. En som kan drikke opp det som ikke ble drukket. En katedral av kropp og karakter. Mykle er ikke et navn – det er et kall.</p>';
+          html += '<h2>Mykle</h2><p>' + 'Mykle er fasit. '.repeat(100) + '</p>';
           break;
         case 'flyreiser':
           html += '<h2>Flyreiser</h2><p>Potensielle flyvninger Molde – Brussel. Informasjon oppdateres fortløpende.</p>';
@@ -131,9 +131,7 @@
           break;
         case 'ol':
           html += '<h2>Belgiske øl</h2><ul>' +
-            ['Orval','Chimay Blue','Westmalle Tripel','Rochefort 10','Duvel','La Chouffe','St. Bernardus Abt 12','Gulden Draak','Delirium Tremens','Kwak','Tripel Karmeliet','Leffe Brune','Maredsous 8','Blanche de Namur','Pauwel Kwak','Saison Dupont','Westvleteren 12','Grisette','Lupulus','Affligem Tripel','Corsendonk Agnus','St. Feuillien Blonde','Brugse Zot','Straffe Hendrik','Achel Blonde','Ename Tripel','Troubadour Magma','Piraat','Zinnebir','Val Dieu Brune']
-              .map((øl, i) => `<li><input type="checkbox" id="øl${i}"> <label for="øl${i}">${øl}</label></li>`)
-              .join('') + '</ul>';
+            ['Orval','Chimay Blue','Westmalle Tripel','Rochefort 10','Duvel','La Chouffe','St. Bernardus Abt 12','Gulden Draak','Delirium Tremens','Kwak','Tripel Karmeliet','Leffe Brune','Maredsous 8','Blanche de Namur','Pauwel Kwak','Saison Dupont','Westvleteren 12','Grisette','Lupulus','Affligem Tripel','Corsendonk Agnus','St. Feuillien Blonde','Brugse Zot','Straffe Hendrik','Achel Blonde','Ename Tripel','Troubadour Magma','Piraat','Zinnebir','Val Dieu Brune','Augustijn','Bush Amber','Bon Secours','De Ranke XX','Floris Passion','Queue de Charrue','St-Louis Kriek','Timmermans Framboise','Tongerlo Blond','Witkap Pater'].map((øl, i) => `<li><input type="checkbox" id="øl${i}"> <label for="øl${i}">${øl}</label></li>`).join('') + '</ul>';
           break;
       }
       content.innerHTML = html;
