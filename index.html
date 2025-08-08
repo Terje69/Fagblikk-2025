@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mykle</title>
+  <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'MedievalSharp', cursive;
+      background-color: #f4f1e5;
+      color: #2e1d0e;
+    }
+    .tile {
+      display: inline-block;
+      width: 45%;
+      margin: 2%;
+      padding: 30px;
+      background-color: #fff4d1;
+      border: 2px solid #7b5e3d;
+      border-radius: 12px;
+      text-align: center;
+      cursor: pointer;
+      box-shadow: 3px 3px 6px rgba(0,0,0,0.2);
+    }
+    .tile.double {
+      width: 94%;
+      font-size: 1.5em;
+    }
+    .tile:hover {
+      background-color: #f9e8b2;
+    }
+    #rpgContainer, #dailyContainer, #questContainer, #kontingentContainer {
+      padding: 20px;
+    }
+    button {
+      padding: 10px 20px;
+      margin: 10px;
+      font-family: inherit;
+      font-size: 1em;
+      background-color: #fff4d1;
+      border: 2px solid #7b5e3d;
+      cursor: pointer;
+      border-radius: 8px;
+    }
+    button:hover {
+      background-color: #f9e8b2;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+      margin-bottom: 20px;
+    }
+  </style>
+  <script src="rpg.js" defer></script>
+  <script>
+    function startGame(chapter) {
+      document.getElementById("mainMenu").style.display = "none";
+      document.getElementById("rpgContainer").style.display = "block";
+      startRPG(chapter);
+    }
+
+    function goToDailyQuests() {
+      document.getElementById("mainMenu").style.display = "none";
+      document.getElementById("dailyContainer").style.display = "block";
+    }
+
+    function openQuest(day) {
+      document.getElementById("dailyContainer").style.display = "none";
+      const container = document.getElementById("questContainer");
+      container.style.display = "block";
+
+      if (day === 1) {
+        container.innerHTML = `<h2>Dag 1: Daily Quests</h2>
+        <ul>
+          <li>Pils før flyplassen</li>
+          <li>Pils hos Au Pairen</li>
+          <li>Pils på første fly</li>
+          <li>Pils på flypassen</li>
+          <li>Pils på andre fly</li>
+          <li>Prøve en ny øl du aldri har smakt</li>
+          <li>Spise noe fritert</li>
+          <li>Loote en gjenstand</li>
+          <li>Hemse</li>
+        </ul>
+        <button onclick="goToDailyQuests()">Tilbake</button>`;
+      } else {
+        container.innerHTML = `<h2>Dag ${day}</h2><p>Daily quests for denne dagen vil komme senere.</p><button onclick="goToDailyQuests()">Tilbake</button>`;
+      }
+    }
+
+    function showKontingent(type) {
+      document.getElementById("mainMenu").style.display = "none";
+      const container = document.getElementById("kontingentContainer");
+      container.style.display = "block";
+      if (type === 'gir') {
+        container.innerHTML = `
+          <h2>Kontingentet gir</h2>
+          <img src="1.jpg" alt="Bilde 1" />
+          <img src="2.jpg" alt="Bilde 2" />
+          <img src="3.jpg" alt="Bilde 3" />
+          <img src="4.jpg" alt="Bilde 4" />
+          <img src="5.jpg" alt="Bilde 5" />
+          <button onclick="location.reload()">Tilbake</button>
+        `;
+      } else {
+        container.innerHTML = `
+          <h2>Kontingentet tar</h2>
+          <img src="do.jpg" alt="Kontingentet tar" />
+          <button onclick="location.reload()">Tilbake</button>
+        `;
+      }
+    }
+  </script>
+</head>
+<body>
+  <div id="mainMenu">
+    <div class="tile double" onclick="startGame(1)">World of Fagcraft: Kapittel 1 – Myklus Oppvåkning</div>
+    <div class="tile double" onclick="startGame(2)">World of Fagcraft: Kapittel 2 – Flugten fra Vegard Beid</div>
+    <div class="tile double" onclick="goToDailyQuests()">Daily Quests</div>
+    <div class="tile" onclick="showKontingent('gir')">Kontingentet gir</div>
+    <div class="tile" onclick="showKontingent('tar')">Kontingentet tar</div>
+  </div>
+
+  <div id="rpgContainer" style="display:none;"></div>
+  <div id="dailyContainer" style="display:none;">
+    <div class="tile double" onclick="openQuest(1)">Dag 1</div>
+    <div class="tile double" onclick="openQuest(2)">Dag 2</div>
+    <div class="tile double" onclick="openQuest(3)">Dag 3</div>
+    <div class="tile double" onclick="openQuest(4)">Dag 4</div>
+    <button onclick="location.reload()">Tilbake</button>
+  </div>
+  <div id="questContainer" style="display:none;"></div>
+  <div id="kontingentContainer" style="display:none;"></div>
+</body>
+</html>
