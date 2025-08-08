@@ -1,346 +1,150 @@
 <!DOCTYPE html>
 <html lang="no">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Fagblikk 2025</title>
-<link href="https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap" rel="stylesheet" />
-<style>
-  body {
-    margin: 0;
-    font-family: 'MedievalSharp', cursive;
-    background-color: #f4f1e5;
-    color: #2e1d0e;
-  }
-  header {
-    text-align: center;
-    padding: 20px 10px 10px;
-    font-size: 2.5em;
-    font-weight: bold;
-    border-bottom: 3px solid #7b5e3d;
-    background: #fff4d1;
-    color: #4a3a1a;
-  }
-  #countdown {
-    font-size: 1.3em;
-    text-align: center;
-    margin: 10px 0 25px 0;
-    font-weight: bold;
-  }
-  #mainMenu {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 0 10px 40px;
-  }
-  .tile {
-    box-sizing: border-box;
-    background-color: #fff4d1;
-    border: 2px solid #7b5e3d;
-    border-radius: 12px;
-    box-shadow: 3px 3px 6px rgba(0,0,0,0.2);
-    color: #2e1d0e;
-    cursor: pointer;
-    padding: 25px 20px;
-    margin: 10px 5px;
-    font-size: 1.1em;
-    text-align: center;
-    user-select: none;
-    transition: background-color 0.3s ease;
-  }
-  .tile:hover {
-    background-color: #f9e8b2;
-  }
-  /* To brede tiles øverst */
-  .tile.double {
-    width: calc(50% - 20px);
-    font-size: 1.4em;
-    font-weight: bold;
-    margin-bottom: 30px;
-    display: inline-block;
-  }
-  /* Vanlige tiles i grid 2xN */
-  .tile.single {
-    width: calc(50% - 20px);
-    display: inline-block;
-    vertical-align: top;
-  }
-  /* Full width for noen */
-  .tile.fullwidth {
-    width: 100%;
-    font-size: 1.4em;
-    font-weight: bold;
-    margin-bottom: 30px;
-  }
-  /* Juster knappene */
-  button {
-    font-family: inherit;
-    font-size: 1em;
-    padding: 10px 20px;
-    border: 2px solid #7b5e3d;
-    border-radius: 8px;
-    background-color: #fff4d1;
-    cursor: pointer;
-    margin-top: 15px;
-  }
-  button:hover {
-    background-color: #f9e8b2;
-  }
-  /* Bilder i kontingent */
-  #kontingentContainer img {
-    max-width: 100%;
-    margin: 10px 0;
-    border-radius: 8px;
-  }
-  /* Skjule alle undersider */
-  #rpgContainer, #dailyContainer, #questContainer, #kontingentContainer, #pageContent {
-    display: none;
-    max-width: 900px;
-    margin: 20px auto;
-    padding: 10px 15px;
-    background: #fff4d1;
-    border: 2px solid #7b5e3d;
-    border-radius: 12px;
-    box-shadow: 3px 3px 6px rgba(0,0,0,0.2);
-  }
-  /* Tekstinnhold på sider */
-  #pageContent p {
-    font-size: 1.1em;
-    line-height: 1.4em;
-    margin: 10px 0;
-  }
-</style>
-
-<script src="rpg.js" defer></script>
-
-<script>
-  // Nedtelling til 9. oktober 2025, 07:00
-  function updateCountdown() {
-    const countdownElem = document.getElementById('countdown');
-    const targetDate = new Date('2025-10-09T07:00:00');
-    const now = new Date();
-    const diff = targetDate - now;
-
-    if(diff <= 0) {
-      countdownElem.textContent = "Arrangementet har startet!";
-      clearInterval(intervalId);
-      return;
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fagblikk 2025</title>
+  <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'MedievalSharp', cursive;
+      background-color: #f4f1e5;
+      color: #2e1d0e;
     }
-
-    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-    const minutes = Math.floor((diff / (1000 * 60)) % 60);
-    const seconds = Math.floor((diff / 1000) % 60);
-
-    countdownElem.textContent = `Nedtelling: ${days}d ${hours}t ${minutes}m ${seconds}s`;
-  }
-
-  let intervalId;
-
-  // Vis hovedmeny, skjul alt annet
-  function showMainMenu() {
-    document.getElementById('mainMenu').style.display = 'block';
-    document.getElementById('rpgContainer').style.display = 'none';
-    document.getElementById('dailyContainer').style.display = 'none';
-    document.getElementById('questContainer').style.display = 'none';
-    document.getElementById('kontingentContainer').style.display = 'none';
-    document.getElementById('pageContent').style.display = 'none';
-  }
-
-  // Åpne side via tile, tekstsider
-  function openPage(page) {
-    showMainMenu();
-    document.getElementById('pageContent').style.display = 'block';
-    const pc = document.getElementById('pageContent');
-    let html = '';
-
-    switch(page) {
-      case 'mykle':
-        html = `
-          <h2>Mykle</h2>
-          <p>Mykle er stedet der vi samles for god stemning og hygge. Her kan man bli kjent, ta en øl og slappe av før reisen fortsetter.</p>
-          <button onclick="showMainMenu()">Tilbake</button>
-        `;
-        break;
-      case 'flyreiser':
-        html = `
-          <h2>Flyreiser</h2>
-          <p>Her finner du informasjon om flyreisene våre, avgangstider, terminaler og praktiske tips for reisen til Belgia.</p>
-          <button onclick="showMainMenu()">Tilbake</button>
-        `;
-        break;
-      case 'overnatting':
-        html = `
-          <h2>Overnatting</h2>
-          <p>Overnatting er booket på hyggelige hoteller og pensjonater i Belgia. Her får du oversikt over hvor vi bor under turen.</p>
-          <button onclick="showMainMenu()">Tilbake</button>
-        `;
-        break;
-      case 'øl':
-        html = `
-          <h2>Belgiske øl</h2>
-          <p>Utforsk sjekklisten vår over ekte belgiske øl som du må prøve under turen! Vi satser på mange smaksopplevelser.</p>
-          <button onclick="showMainMenu()">Tilbake</button>
-        `;
-        break;
-      case 'sjekklist':
-        html = `
-          <h2>Sjekkliste</h2>
-          <p>Her finner du sjekklisten for ting å huske før og under turen – fra pakking til praktiske gjøremål.</p>
-          <button onclick="showMainMenu()">Tilbake</button>
-        `;
-        break;
-      default:
-        html = `<p>Siden finnes ikke.</p><button onclick="showMainMenu()">Tilbake</button>`;
+    header {
+      text-align: center;
+      padding: 20px;
+      font-size: 2em;
+      background: #fff4d1;
+      border-bottom: 2px solid #7b5e3d;
     }
-
-    pc.innerHTML = html;
-    document.getElementById('mainMenu').style.display = 'none';
-  }
-
-  // World of Fagcraft - kapittelvalg
-  function openFagcraftMenu() {
-    document.getElementById('mainMenu').style.display = 'none';
-    document.getElementById('pageContent').style.display = 'none';
-    document.getElementById('dailyContainer').style.display = 'none';
-    document.getElementById('questContainer').style.display = 'none';
-    document.getElementById('kontingentContainer').style.display = 'none';
-
-    const container = document.getElementById('rpgContainer');
-    container.style.display = 'block';
-    container.innerHTML = `
-      <div class="tile double" onclick="startGame(1)">Kapittel 1 – Myklus Oppvåkning</div>
-      <div class="tile double" onclick="startGame(2)">Kapittel 2 – Flugten fra Vegard Beid</div>
-      <button onclick="showMainMenu()">Tilbake</button>
-    `;
-  }
-
-  function startGame(chapter) {
-    // Kaller funksjon i rpg.js som starter spillet
-    if(typeof startRPG === 'function') {
-      startRPG(chapter);
-    } else {
-      alert('RPG-spillet er ikke lastet.');
+    #countdown {
+      text-align: center;
+      font-size: 1.2em;
+      margin: 10px 0 20px;
     }
-  }
-
-  // Daily Quests som egen side
-  function openDailyQuests() {
-    document.getElementById('mainMenu').style.display = 'none';
-    document.getElementById('pageContent').style.display = 'none';
-    document.getElementById('rpgContainer').style.display = 'none';
-    document.getElementById('questContainer').style.display = 'none';
-    document.getElementById('kontingentContainer').style.display = 'none';
-
-    const container = document.getElementById('dailyContainer');
-    container.style.display = 'block';
-    container.innerHTML = `
-      <h2 style="text-align:center; margin-bottom: 20px;">Daily Quests</h2>
-      <div class="tile double" onclick="openQuest(1)">Dag 1</div>
-      <div class="tile double" onclick="openQuest(2)">Dag 2</div>
-      <div class="tile double" onclick="openQuest(3)">Dag 3</div>
-      <div class="tile double" onclick="openQuest(4)">Dag 4</div>
-      <button onclick="showMainMenu()">Tilbake</button>
-    `;
-  }
-
-  // Vis quests for dag i daily quests
-  function openQuest(day) {
-    const container = document.getElementById('questContainer');
-    container.style.display = 'block';
-    document.getElementById('dailyContainer').style.display = 'none';
-
-    let questHtml = '';
-
-    if(day === 1) {
-      questHtml = `
-        <h2>Dag 1: Daily Quests</h2>
-        <ul>
-          <li>Pils før flyplassen</li>
-          <li>Pils hos Au Pairen</li>
-          <li>Pils på første fly</li>
-          <li>Pils på flyplassen</li>
-          <li>Pils på andre fly</li>
-          <li>Prøve en ny øl du aldri har smakt</li>
-          <li>Spise noe fritert</li>
-          <li>Loote en gjenstand</li>
-          <li>Hemse</li>
-        </ul>
-        <button onclick="openDailyQuests()">Tilbake</button>
-      `;
-    } else {
-      questHtml = `
-        <h2>Dag ${day}</h2>
-        <p>Daily quests for denne dagen kommer snart.</p>
-        <button onclick="openDailyQuests()">Tilbake</button>
-      `;
+    .tile {
+      display: inline-block;
+      width: calc(50% - 20px);
+      margin: 10px;
+      padding: 20px;
+      background-color: #fff4d1;
+      border: 2px solid #7b5e3d;
+      border-radius: 12px;
+      text-align: center;
+      cursor: pointer;
+      box-shadow: 2px 2px 6px rgba(0,0,0,0.2);
     }
-
-    container.innerHTML = questHtml;
-  }
-
-  // Vis kontingentet gir eller tar med bilder
-  function showKontingent(type) {
-    document.getElementById('mainMenu').style.display = 'none';
-    document.getElementById('pageContent').style.display = 'none';
-    document.getElementById('rpgContainer').style.display = 'none';
-    document.getElementById('dailyContainer').style.display = 'none';
-    document.getElementById('questContainer').style.display = 'none';
-
-    const container = document.getElementById('kontingentContainer');
-    container.style.display = 'block';
-
-    if(type === 'gir') {
-      container.innerHTML = `
-        <h2>Kontingentet gir</h2>
-        <img src="1.jpg" alt="Bilde 1" />
-        <img src="2.jpg" alt="Bilde 2" />
-        <img src="3.jpg" alt="Bilde 3" />
-        <img src="4.jpg" alt="Bilde 4" />
-        <img src="5.jpg" alt="Bilde 5" />
-        <button onclick="showMainMenu()">Tilbake</button>
-      `;
-    } else {
-      container.innerHTML = `
-        <h2>Kontingentet tar</h2>
-        <img src="6.jpg" alt="Bilde 6" />
-        <img src="7.jpg" alt="Bilde 7" />
-        <img src="8.jpg" alt="Bilde 8" />
-        <img src="9.jpg" alt="Bilde 9" />
-        <button onclick="showMainMenu()">Tilbake</button>
-      `;
+    .tile.double {
+      width: calc(100% - 40px);
+      font-size: 1.5em;
+      font-weight: bold;
     }
-  }
-
-  window.onload = () => {
-    updateCountdown();
-    intervalId = setInterval(updateCountdown, 1000);
-    showMainMenu();
-  };
-</script>
+    .tile:hover {
+      background-color: #f9e8b2;
+    }
+    .hidden {
+      display: none;
+    }
+    .quest-list {
+      list-style: none;
+      padding: 0;
+    }
+    .quest-list li {
+      margin: 10px 0;
+    }
+  </style>
 </head>
 <body>
   <header>Fagblikk 2025</header>
-  <div id="countdown">Nedtelling:</div>
+  <div id="countdown">Nedtelling...</div>
 
   <div id="mainMenu">
-    <!-- To brede tiles øverst -->
     <div class="tile double" onclick="openFagcraftMenu()">World of Fagcraft</div>
     <div class="tile double" onclick="openDailyQuests()">Daily Quests</div>
-
-    <!-- Resten i to kolonner -->
-    <div class="tile single" onclick="openPage('mykle')">Mykle</div>
-    <div class="tile single" onclick="openPage('flyreiser')">Flyreiser</div>
-    <div class="tile single" onclick="openPage('overnatting')">Overnatting</div>
-    <div class="tile single" onclick="openPage('øl')">Belgiske øl</div>
-    <div class="tile single" onclick="openPage('sjekklist')">Sjekkliste</div>
+    <div class="tile single" onclick="showPage('mykle')">Mykle</div>
+    <div class="tile single" onclick="showPage('flyreiser')">Flyreiser</div>
+    <div class="tile single" onclick="showPage('overnatting')">Overnatting</div>
+    <div class="tile single" onclick="showPage('ol')">Belgiske øl</div>
+    <div class="tile single" onclick="showPage('sjekkliste')">Sjekkliste</div>
     <div class="tile single" onclick="showKontingent('gir')">Kontingentet gir</div>
     <div class="tile single" onclick="showKontingent('tar')">Kontingentet tar</div>
   </div>
 
-  <div id="pageContent"></div>
-  <div id="rpgContainer"></div>
-  <div id="dailyContainer"></div>
-  <div id="questContainer"></div>
-  <div id="kontingentContainer"></div>
+  <div id="dailyContainer" class="hidden">
+    <h2 style="text-align:center">Dag 1: Daily Quests</h2>
+    <ul class="quest-list">
+      <li><input type="checkbox" id="q1"> <label for="q1">Pils før flyplassen</label></li>
+      <li><input type="checkbox" id="q2"> <label for="q2">Pils hos Au Pairen</label></li>
+      <li><input type="checkbox" id="q3"> <label for="q3">Pils på første fly</label></li>
+      <li><input type="checkbox" id="q4"> <label for="q4">Pils på flyplassen</label></li>
+      <li><input type="checkbox" id="q5"> <label for="q5">Pils på andre fly</label></li>
+      <li><input type="checkbox" id="q6"> <label for="q6">Prøve en ny øl du aldri har smakt</label></li>
+      <li><input type="checkbox" id="q7"> <label for="q7">Spise noe fritert</label></li>
+      <li><input type="checkbox" id="q8"> <label for="q8">Loote en gjenstand</label></li>
+      <li><input type="checkbox" id="q9"> <label for="q9">Hemse</label></li>
+    </ul>
+    <button onclick="showMainMenu()">Tilbake</button>
+  </div>
+
+  <div id="pageContent" class="hidden"></div>
+
+  <script>
+    function updateCountdown() {
+      const target = new Date("2025-10-09T07:00:00").getTime();
+      const now = new Date().getTime();
+      const diff = target - now;
+      if (diff < 0) {
+        document.getElementById("countdown").innerText = "Turen har startet!";
+        return;
+      }
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diff / (1000 * 60)) % 60);
+      const seconds = Math.floor((diff / 1000) % 60);
+      document.getElementById("countdown").innerText = `Nedtelling: ${days}d ${hours}t ${minutes}m ${seconds}s`;
+    }
+
+    function showMainMenu() {
+      document.getElementById('mainMenu').classList.remove('hidden');
+      document.getElementById('dailyContainer').classList.add('hidden');
+      document.getElementById('pageContent').classList.add('hidden');
+    }
+
+    function openDailyQuests() {
+      document.getElementById('mainMenu').classList.add('hidden');
+      document.getElementById('dailyContainer').classList.remove('hidden');
+    }
+
+    function showPage(page) {
+      const content = document.getElementById('pageContent');
+      let html = '<button onclick="showMainMenu()">Tilbake</button>';
+      switch (page) {
+        case 'mykle':
+          html += '<h2>Mykle</h2><p>Han er en maskin på alle felt, drikker ekstreme mengder pils og er rett og slett fasit. Han er kjent som Mykle. En levende legende. En tårnbygger. En pilsens profet.</p>';
+          break;
+        case 'flyreiser':
+          html += '<h2>Flyreiser</h2><p>Potensielle flyvninger Molde – Brussel. Informasjon oppdateres fortløpende.</p>';
+          break;
+        case 'overnatting':
+          html += '<h2>Overnatting</h2><p>Informasjon om overnatting er TBD (To Be Determined).</p>';
+          break;
+        case 'ol':
+          html += '<h2>Belgiske øl</h2><ul><li>Orval</li><li>Chimay Blue</li><li>Westmalle Tripel</li><li>Rochefort 10</li><li>Duvel</li><li>La Chouffe</li><li>St. Bernardus Abt 12</li><li>Gulden Draak</li><li>Delirium Tremens</li><li>Kwak</li><li>Tripel Karmeliet</li><li>Leffe Brune</li><li>Maredsous 8</li><li>Blanche de Namur</li><li>Pauwel Kwak</li><li>Saison Dupont</li><li>Westvleteren 12</li><li>Grisette</li><li>Lupulus</li><li>Affligem Tripel</li></ul>';
+          break;
+        case 'sjekkliste':
+          html += '<h2>Sjekkliste</h2><ul><li>Pass</li><li>Billetter</li><li>Powerbank</li><li>Solbriller</li><li>Telefonlader</li></ul>';
+          break;
+      }
+      content.innerHTML = html;
+      content.classList.remove('hidden');
+      document.getElementById('mainMenu').classList.add('hidden');
+      document.getElementById('dailyContainer').classList.add('hidden');
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+  </script>
 </body>
 </html>
