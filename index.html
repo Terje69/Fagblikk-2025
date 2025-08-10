@@ -142,18 +142,19 @@
     }
 
     function openFagcraftMenu() {
-      const content = document.getElementById('pageContent');
-      content.innerHTML = `
-        <h2>World of Fagcraft</h2>
-        <div class="tile" onclick="startRPG(1)">Kapittel 1: Myklus Oppvåkning</div>
-        <div class="tile" onclick="startRPG(2)">Kapittel 2: Flugten fra Vegard Beid</div>
-        <button onclick="showMainMenu()">Tilbake</button>
-      `;
-      content.classList.remove('hidden');
-      document.getElementById('mainMenu').classList.add('hidden');
-      document.getElementById('dailyContainer').classList.add('hidden');
-      document.getElementById('rpgContainer').classList.add('hidden');
-    }
+  const content = document.getElementById('pageContent');
+  content.innerHTML = `
+    <h2>World of Fagcraft</h2>
+    <div class="tile" onclick="startRPG(1)">Kapittel 1: Myklus Oppvåkning</div>
+    <div class="tile" onclick="startRPG(2)">Kapittel 2: Flugten fra Vegard Beid</div>
+    <div class="tile" onclick="startRPG(3)">Kapittel 3: Rulles Prøvelse</div>
+    <button onclick="showMainMenu()">Tilbake</button>
+  `;
+  content.classList.remove('hidden');
+  document.getElementById('mainMenu').classList.add('hidden');
+  document.getElementById('dailyContainer').classList.add('hidden');
+  document.getElementById('rpgContainer').classList.add('hidden');
+}
 
     function showPage(page) {
       const content = document.getElementById('pageContent');
