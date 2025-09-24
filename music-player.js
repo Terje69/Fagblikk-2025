@@ -15,7 +15,7 @@
 
 (function () {
   // -------------------- Configuration --------------------
-  const MP3_PATH = './audio/servitrisen-pa-den-engel.mp3';
+  const MP3_PATH = './servitrisen-pa-den-engel.mp3';
   const TILE_CONTAINER_SELECTOR = '#tiles'; // change if your tile grid uses a different selector
   const TITLE = 'Servitrisen på Den Engel';
   const ARTIST = 'Tripel Creek Ramblers'; // subtle Belgian beer nod (Tripel) + country vibe
